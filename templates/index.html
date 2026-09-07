@@ -10,6 +10,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+    />
 </head>
 <body>
     <header class="site-header">
@@ -25,6 +29,7 @@
     </header>
 
     <main>
+        <!--profile-->
         <section class="hero" id="profile">
             <div class="container hero-grid">
                 <div class="hero-identity">
@@ -33,7 +38,7 @@
                 </div>
                 <div class="hero-photo">
                     <div class="photo-block"></div>
-                    <img class="avatar" src="/static/img/miyuki.jpeg" alt="Photo of Miyuki">
+                    <img class="avatar" src="/static/img/miyuki.jpeg">
                 </div>
                 <div class="hero-details">
                     <p class="bio">IS student at Universitas Indonesia with a strong interest in Product Management and technology-driven problem solving. Passionate about building impactful technology solutions by bridging user needs, business objectives, and technical possibilities.</p>
@@ -55,12 +60,260 @@
                 </div>
             </div>
         </section>
+
+        <!--skills dan interest-->
+        <section class="skills" id="skills">
+            <div class="container">
+                <div class="skills-header">
+                    <div>
+                        <p class="section-label">WHAT I DO</p>
+                        <h2 class="section-title">Skills</h2>
+                    </div>
+                    <p class="skills-intro">
+                        A mix of product thinking, technical knowledge, and
+                        project execution that I bring into every project.
+                    </p>
+                </div>
+
+                <div class="skills-grid">
+
+                    <div class="skill-item">
+                        <span class="skill-number">01</span>
+                        <div>
+                            <h3>Product</h3>
+                            <p>
+                                Product Strategy · User Research ·
+                                Feature Prioritization · UX Thinking ·
+                                Product Roadmapping
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <span class="skill-number">02</span>
+                        <div>
+                            <h3>Business</h3>
+                            <p>
+                                Market Research · Competitive Analysis ·
+                                Value Proposition · Financial Projection
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <span class="skill-number">03</span>
+                        <div>
+                            <h3>Technical</h3>
+                            <p>
+                                Python · Java · Web Development ·
+                                Git/GitHub
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <span class="skill-number">04</span>
+                        <div>
+                            <h3>Project</h3>
+                            <p>
+                                Project Management · Timeline Planning ·
+                                Team Coordination · Presentation
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!--pengalaman-->
+        <section class="experience" id="experience">
+            <div class="container">
+                <p class="section-label">WHERE I'VE BEEN</p>
+                <h2 class="section-title">Experience</h2>
+
+                <div class="experience-list">
+
+                    <div class="experience-item">
+                        <div class="experience-date">
+                            <span>2026 — Present</span>
+                            <img src="/static/img/DSC01844.jpg" alt="PM Ristek">
+                        </div>
+
+                        <div class="experience-content">
+                            <h3>Staff of Product & Project Management</h3>
+                            <p class="experience-org">RISTEK Fasilkom UI 2026</p>
+                            <p class="experience-desc">
+                                Contributing to product development and project management across internal and external projects, from identifying user needs and planning features to coordinating development and execution.
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="experience-item">
+                        <div class="experience-date">
+                            <span>2026 — Present</span>
+                            <img src="/static/img/compfest.jpeg" alt="PMA COMPFEST 18">
+                        </div>
+
+                        <div class="experience-content">
+                            <h3>Staff of Product Management Academy</h3>
+                            <p class="experience-org">COMPFEST 18</p>
+                            <p class="experience-desc">
+                                Supporting the Product Management Academy by coordinating mentoring programs and sessions with experienced Product Management mentors and industry professionals.
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="experience-item">
+                        <div class="experience-date">
+                            <span>2025</span>
+                            <img src="/static/img/sospro.jpeg" alt="SOSPRO">
+                        </div>
+
+                        <div class="experience-content">
+                            <h3>Vice Project Officer</h3>
+                            <p class="experience-org">Social Project PACIL (Pandai Membaca Literasi)</p>
+                            <p class="experience-desc">
+                                Coordinating a literacy-focused social project and developing interactive activities to encourage reading interest and confidence among children.
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="experience-item">
+                        <div class="experience-date">
+                            <span>2025</span>
+                            <img src="/static/img/PROH.jpeg" alt="PR Open House">
+                        </div>
+
+                        <div class="experience-content">
+                            <h3>Public Relations Staff</h3>
+                            <p class="experience-org">Open House Fasilkom UI</p>
+                            <p class="experience-desc">
+                                Supporting faculty outreach and promotional activities through Fasilkom Goes to School and serving as an MC for Open House events.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!--projects-->
+        <section class="projects" id="projects">
+            <div class="container">
+                <h2 class="section-title">Projects</h2>
+                <p class="section-desc">Things I've built, solved, and learned from.</p>
+
+                <div class="swiper portofolio-swiper">
+                    <div class="swiper-wrapper">
+
+                        <!-- Project 1 -->
+                        <div class="swiper-slide">
+                            <div class="card">
+                                <div class="card-body">
+                                    <img src="/static/img/fisiomate.png" alt="FisioMate" class="card-img-top">
+                                    <div class="project-type">Ristek Hackathon 2026</div>
+                                    <h6>FisioMate</h6>
+                                    <p>AI-powered physiotherapy platform connecting patients & physiotherapists. A dual-user platform that helps patients follow and monitor their Home Exercise Programs while enabling physiotherapists to track patient adherence and progress.</p>
+                                    <div class="project-tags">
+                                        <span>Product Management</span>
+                                        <span>User Research</span>
+                                        <span>Business Strategy</span>
+                                        <span>AI</span>
+                                    </div>
+                                    <a href="https://drive.google.com/file/d/1L-llvyIjN4tuIUEVH4-OP9lrDNhhL518/view?usp=sharing" class="text-dark">Detail Project →</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 2 -->
+                        <div class="swiper-slide">
+                            <div class="card">
+                                <div class="card-body">
+                                    <img src="/static/img/sunjad.webp" alt="SusunJadwal" class="card-img-top">
+                                    <div class="project-type">Website</div>
+                                    <h6>SusunJadwal</h6>
+                                    <p>A scheduling platform that helps Universitas Indonesia students find, compare, and save their ideal course schedules without the usual registration chaos.</p>
+                                    <div class="project-tags">
+                                        <span>Product Management</span>
+                                        <span>User Research</span>
+                                        <span>Feature Prioritization</span>
+                                    </div>
+                                    <a href="https://susunjadwal.cs.ui.ac.id/" class="text-dark">Detail Project →</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 3 -->
+                        <div class="swiper-slide">
+                            <div class="card">
+                                <div class="card-body">
+                                    <img src="/static/img/webporto.png" alt="Personal Portfolio" class="card-img-top">
+                                    <div class="project-type">Website Development</div>
+                                    <h6>Personal Portofolio</h6>
+                                    <p>A personal portfolio website designed to showcase my projects, experiences, and skills while exploring the intersection of design and web development.</p>
+                                    <div class="project-tags">
+                                        <span>HTML</span>
+                                        <span>CSS</span>
+                                        <span>Django</span>
+                                    </div>
+                                    <a href="https://rachelin-miyuki-myportofolio.pws.cs.ui.ac.id/" class="text-dark">Detail Project →</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    <!-- Project 4 -->
+                    <div class="swiper-slide">
+                        <div class="card">
+                            <div class="card-body">
+                                <img src="/static/img/risteksummer.jpeg" alt="Summer Events RISTEK 2026" class="card-img-top">
+                                <div class="project-type">Website</div>
+                                <h6>Website Summer Events RISTEK 2026</h6>
+                                <p>A summer events website created to centralize event information and make it easier for students to discover, explore, and register for activities organized by RISTEK.</p>
+                                <div class="project-tags">
+                                    <span>Project Management</span>
+                                </div>
+                                <a href="https://event.ristek.cs.ui.ac.id/" class="text-dark">Detail Project →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </section>
     </main>
 
+    <!--footer-->
     <footer class="site-footer">
         <div class="container">
             <p>&copy; 2026 Rachelin Miyuki Hendratmo. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
         </div>
     </footer>
+
+    <!--untuk swiper yang dipake di projects-->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".portofolio-swiper", {
+            slidesPerView: 3,
+            spaceBetween: 30,
+
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+    </script>
 </body>
 </html>
