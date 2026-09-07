@@ -1,7 +1,9 @@
-Nama : Miyuki
+### Tugas 1
 
-NPM : 2506536553
+1. Iya, di website portofolio saya menggunakan beberapa elemen semantik HTML5 seperti <section> untuk membagi section utama pada website portofolio, yaitu about, experience, skills, dan projects. Menurut saya, penggunaan elemen ini cukup membantu karena struktur HTML jadi lebih jelas dan gampang dibaca. Saya juga jadi lebih mudah ketika ingin mengatur CSS untuk masing-masing bagian dikarenakan setiap section sudah punya fungsi yang jelas. Jadi walaupun website yang dibuat masih static, struktur kontennya tetap lebih terorganisir dan tidak hanya menggunakan <div> untuk semuanya.
 
-Kelas : PBP F
+2. Tantangan yang paling saya rasakan adalah saat menyesuaikan layout dari desktop ke mobile. Beberapa bagian yang di desktop terlihat rapih ternyata jadi kurang cocok ketika ukuran layar diperkecil, seeperti di section projects. Pada section projects, card  menggunakan swiper yang malah terlihat terlalu kurus di mobile karena ukurannya ikut mengecil. Hal tersebut menjadikan gambar dan teks di dalam card juga jadi lebih susah dibaca. Di section skills juga sempat ada masalah karena kotak-kotaknya jadi memanjang ke bawah satu per satu. Padahal menurut saya, akan lebih readable dan mempertahankan interest user lain jika tetap menggunakan bentuk 2x2, jadi informasinya tidak membuat halaman terlalu panjang dan tetap terlihat sebagai kumpulan skill. Setelah itu saya melihat responsive layout dari apakah semua elemennya muat di layar dan juga dan apakah bentuk dan informasi yang ditampilkan masih nyaman untuk dilihat. Maka dari itu, responsive menurut saya perlu menyesuaikan kembali susunan dan proporsinya supaya tetap readable oleh user di mobile maupun desktop.
 
-IPK: 3,86
+3. Batasan yang saya rasakan dengan web portofolio yang masih berisfat static web adalah jika saya ingin mengubah atau menambah komponen tertentu pada section tertentu, saya harus mengubah kode nya lagi di html. Untuk development selanjutnya, saya berharap bisa menambahkan fungsi dinamis pada section projects, seperti melakukan filter pada tags projects yang ingin user seearch. Misalnya user hanya ingin tau projects saya yang berkaitan dengan Product Management, dan section projects hanya akan menampilkan proejcts yang berkaitan dengan itu.
+
+Selain itu, saya juga kepikiran untuk menambahkan experience dan projects secara manual di websitenya, seperti dengan menambahkan fitur button "+" or "add" agar saya sebagai admin tidak perlu bolak balik code untuk menambahan projek. Tentunya dengan saya sebagai admin pun akan membutuhkan skema login untuk akses yang terbatas (tidak sembarangan user bisa menjadi admin). Namun, saya menyadari bahwa development ini akan begitu kompleks hingga membutuhkan pemahaman backend.
