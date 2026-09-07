@@ -259,10 +259,11 @@ h1, .brand {
 
 .skill-item {
     display: grid;
-    grid-template-columns: 40px 1fr;
-    gap: 1.5rem;
-    padding: 2rem;
+    grid-template-columns: 35px 1fr;
+    gap: 1rem;
+    padding: 1.4rem 1.5rem;
     background-color: rgba(255, 250, 255, 0.96);
+
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
@@ -272,7 +273,7 @@ h1, .brand {
 
 .skill-number {
     font-family: "Space Grotesk", -apple-system, sans-serif;
-    font-size: 2.6rem;
+    font-size: 2rem;
     line-height: 0.9;
     font-weight: 800;
     color: var(--ink);
@@ -281,14 +282,14 @@ h1, .brand {
 
 .skill-item h3 {
     font-family: "Space Grotesk", -apple-system, sans-serif;
-    font-size: 1.4rem;
-    margin-bottom: 0.6rem;
+    font-size: 1.15rem;
+    margin-bottom: 0.4rem;
 }
 
 .skill-item p {
     color: var(--text-muted);
-    font-size: 0.9rem;
-    line-height: 1.7;
+    font-size: 0.82rem;
+    line-height: 1.5;
 }
 
 /* experience */
@@ -367,7 +368,7 @@ h1, .brand {
     }
 
     .skills-grid {
-        grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     }
 
     .experience-item {
@@ -381,31 +382,67 @@ h1, .brand {
     }
 }
 
-/* projects */
-.projects {
-    padding: 4rem 0 5rem;
+@media (max-width: 500px) {
+    .skill-item {
+        padding: 1rem 0.75rem;
+        grid-template-columns: 28px 1fr;
+        gap: 0.5rem;
+    }
+
+    .skill-number {
+        font-size: 1.4rem;
+    }
+
+    .skill-item h3 {
+        font-size: 1rem;
+    }
+
+    .skill-item p {
+        font-size: 0.75rem;
+        word-break: break-word; /* biar kata panjang ga terpotong keluar batas */
+    }
 }
 
-/* swiper untuk slide view*/
+
+/* projects */
+.projects {
+    padding: 5rem 0 5.5rem;
+    border-top: 1px solid var(--line);
+}
+
+/* swiper */
 .portofolio-swiper {
     width: 100%;
-    padding: 1rem 0 3.5rem;
+    padding: 1.5rem 0 4rem;
+    overflow: hidden;
 }
 
 .portofolio-swiper .swiper-slide {
     height: auto;
+    display: flex;
 }
 
+/*proe=ject cardd*/
 
-/* card  */
 .portofolio-swiper .card {
+    width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.82);
+    min-height: 460px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: rgba(255, 255, 255, 0.92);
     border: 1px solid var(--line);
     border-radius: var(--radius);
     overflow: hidden;
-    box-shadow: 0 12px 30px rgba(36, 33, 58, 0.07);
-    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+
+    box-shadow: 0 10px 25px rgba(36, 33, 58, 0.07);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 .portofolio-swiper .card:hover {
@@ -414,37 +451,36 @@ h1, .brand {
     box-shadow: 0 18px 35px rgba(36, 33, 58, 0.12);
 }
 
+/*card body*/
+
 .portofolio-swiper .card-body {
     height: 100%;
     padding: 0;
+
     display: flex;
     flex-direction: column;
 }
 
+/*foto foto project*/
 
-/* image */
 .portofolio-swiper .card-img-top {
     display: block;
     width: 100%;
+
     aspect-ratio: 16 / 9;
     object-fit: cover;
+
     border-bottom: 1px solid var(--line);
 }
 
-
-/* teks di card */
-.portofolio-swiper .card-body h6 {
-    font-size: 1.25rem;
-    margin: 1.25rem 1.25rem 0.5rem;
-    position: relative;
-    padding-top: 1.1rem;
-}
+/*tipe project*/
 
 .portofolio-swiper .project-type {
     display: inline-block;
     align-self: flex-start;
-    margin: 1.1rem 1.25rem 0;
-    padding: 0.4rem 0.7rem;
+
+    margin: 1.25rem 1.5rem 0;
+    padding: 0.45rem 0.75rem;
 
     background: var(--ink);
     color: var(--accent);
@@ -459,6 +495,7 @@ h1, .brand {
     text-transform: uppercase;
 
     box-shadow: 4px 4px 0 var(--accent);
+
     transition: all 0.2s ease;
 }
 
@@ -467,61 +504,96 @@ h1, .brand {
     box-shadow: 6px 6px 0 var(--accent-dark);
 }
 
+/*project title*/
+
+.portofolio-swiper .card-body h6 {
+    font-family: "Space Grotesk", -apple-system, sans-serif;
+    font-size: 1.35rem;
+    line-height: 1.25;
+
+    margin: 1.4rem 1.5rem 0.65rem;
+    padding: 0;
+}
+
+/*desc project*/
+
 .portofolio-swiper .card-body p {
     color: var(--text-muted);
     font-size: 0.9rem;
-    line-height: 1.5;
-    margin: 0 1.25rem 1.25rem;
+    line-height: 1.65;
+
+    margin: 0 1.5rem 1.25rem;
 }
 
-.portofolio-swiper .text-dark {
-    margin: auto 1.25rem 1.25rem;
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-decoration: none;
-}
-
-.portofolio-swiper .text-dark:hover {
-    text-decoration: underline;
-}
+/*tags untuk project*/
 
 .project-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin: 0 1.25rem 1.25rem;
+
+    margin: 0 1.5rem 1.25rem;
 }
 
 .project-tags span {
-    font-size: 0.75rem;
-    padding: 0.25rem 0.75rem;
+    font-size: 0.72rem;
+    line-height: 1.2;
+
+    padding: 0.3rem 0.7rem;
+
     border: 1px solid var(--line);
     border-radius: 999px;
+
     color: var(--ink);
-    background-color: var(--paper);
     background: #ffffff;
+
     transition: all 0.2s ease;
 }
 
 .project-tags span:hover {
     border-color: var(--accent-dark);
     color: var(--accent-dark);
-    background: #fff0f6; 
+    background: #fff0f6;
 }
 
-/* swiper arrows */
+/*project link*/
+
+.portofolio-swiper .text-dark {
+    display: inline-block;
+
+    margin: auto 1.5rem 1.5rem;
+
+    font-size: 0.85rem;
+    font-weight: 700;
+
+    color: var(--accent-dark);
+    text-decoration: none;
+}
+
+.portofolio-swiper .text-dark:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/*swiper arrownya*/
+
 .portofolio-swiper .swiper-button-prev,
 .portofolio-swiper .swiper-button-next {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
+
     top: auto;
     bottom: 0;
+
     margin: 0;
+
     border: 1px solid var(--ink);
     border-radius: var(--radius);
-    background-color: var(--paper);
+
     background: #ffffff;
+
     box-shadow: 0 6px 16px rgba(36, 33, 58, 0.10);
+
     transition: all 0.2s ease;
 }
 
@@ -540,21 +612,101 @@ h1, .brand {
     color: var(--ink);
 }
 
+.portofolio-swiper .swiper-button-prev:hover,
+.portofolio-swiper .swiper-button-next:hover {
+    background: var(--accent);
+    border-color: var(--accent-dark);
+    transform: translateY(-2px);
+}
 
-/* swiper dots */
+/* swiper pagination */
+
 .portofolio-swiper .swiper-pagination {
-    bottom: 10px;
+    bottom: 12px;
 }
 
 .portofolio-swiper .swiper-pagination-bullet {
     width: 7px;
     height: 7px;
+
     background-color: var(--line);
     opacity: 1;
 }
 
 .portofolio-swiper .swiper-pagination-bullet-active {
     background-color: var(--accent-dark);
+}
+
+
+/* mobile */
+
+@media (max-width: 700px) {
+
+    .projects {
+        padding: 4rem 0 4.5rem;
+    }
+
+    .portofolio-swiper {
+        padding-top: 1rem;
+        padding-bottom: 4rem;
+
+        /* kasih sedikit ruang supaya card tidak terasa mepet */
+        overflow: visible;
+    }
+
+    .portofolio-swiper .swiper-slide {
+        width: 100%;
+    }
+
+    .portofolio-swiper .card {
+        min-height: 0;
+        width: 100%;
+    }
+
+    .portofolio-swiper .card-img-top {
+        aspect-ratio: 16 / 9;
+    }
+
+    .portofolio-swiper .project-type {
+        margin: 1.1rem 1.25rem 0;
+    }
+
+    .portofolio-swiper .card-body h6 {
+        font-size: 1.2rem;
+        margin-left: 1.25rem;
+        margin-right: 1.25rem;
+    }
+
+    .portofolio-swiper .card-body p {
+        font-size: 0.88rem;
+        margin-left: 1.25rem;
+        margin-right: 1.25rem;
+    }
+
+    .project-tags {
+        margin-left: 1.25rem;
+        margin-right: 1.25rem;
+    }
+
+    .portofolio-swiper .text-dark {
+        margin-left: 1.25rem;
+        margin-right: 1.25rem;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .portofolio-swiper .card-body h6 {
+        font-size: 1.1rem;
+    }
+
+    .portofolio-swiper .card-body p {
+        font-size: 0.84rem;
+    }
+
+    .portofolio-swiper .project-type {
+        font-size: 0.58rem;
+    }
 }
 
 .site-footer {

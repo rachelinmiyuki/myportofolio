@@ -165,23 +165,6 @@
                         </div>
                     </div>
 
-
-                    <div class="experience-item">
-                        <div class="experience-date">
-                            <span>2025</span>
-                            <img src="/static/img/sospro.jpeg" alt="SOSPRO">
-                        </div>
-
-                        <div class="experience-content">
-                            <h3>Vice Project Officer</h3>
-                            <p class="experience-org">Social Project PACIL (Pandai Membaca Literasi)</p>
-                            <p class="experience-desc">
-                                Coordinating a literacy-focused social project and developing interactive activities to encourage reading interest and confidence among children.
-                            </p>
-                        </div>
-                    </div>
-
-
                     <div class="experience-item">
                         <div class="experience-date">
                             <span>2025</span>
@@ -265,21 +248,21 @@
                             </div>
                         </div>
 
-                    <!-- Project 4 -->
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <div class="card-body">
-                                <img src="/static/img/risteksummer.jpeg" alt="Summer Events RISTEK 2026" class="card-img-top">
-                                <div class="project-type">Website</div>
-                                <h6>Website Summer Events RISTEK 2026</h6>
-                                <p>A summer events website created to centralize event information and make it easier for students to discover, explore, and register for activities organized by RISTEK.</p>
-                                <div class="project-tags">
-                                    <span>Project Management</span>
+                        <!-- Project 4 -->
+                        <div class="swiper-slide">
+                            <div class="card">
+                                <div class="card-body">
+                                    <img src="/static/img/risteksummer.jpeg" alt="Summer Events RISTEK 2026" class="card-img-top">
+                                    <div class="project-type">Website</div>
+                                    <h6>Website Summer Events RISTEK 2026</h6>
+                                    <p>A summer events website created to centralize event information and make it easier for students to discover, explore, and register for activities organized by RISTEK.</p>
+                                    <div class="project-tags">
+                                        <span>Project Management</span>
+                                    </div>
+                                    <a href="https://event.ristek.cs.ui.ac.id/" class="text-dark">Detail Project →</a>
                                 </div>
-                                <a href="https://event.ristek.cs.ui.ac.id/" class="text-dark">Detail Project →</a>
                             </div>
                         </div>
-                    </div>
 
                     </div>
                     <div class="swiper-button-prev"></div>
@@ -301,8 +284,8 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
     <script>
         var swiper = new Swiper(".portofolio-swiper", {
-            slidesPerView: 3,
-            spaceBetween: 30,
+            slidesPerView: 1,
+            spaceBetween: 20,
 
             navigation: {
                 nextEl: ".swiper-button-next",
@@ -313,6 +296,18 @@
                 el: ".swiper-pagination",
                 clickable: true,
             },
+
+            breakpoints: {
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 24,
+            },
+
+            1024: {
+                slidesPerView: 2.2,
+                spaceBetween: 28,
+            }
+        }
         });
     </script>
 </body>
