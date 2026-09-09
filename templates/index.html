@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rachelin Miyuki Hendratmo - Portfolio</title>
+    <title>{{ name }} - Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -18,11 +18,11 @@
 <body>
     <header class="site-header">
         <div class="container">
-            <a href="#profile" class="brand">Rachelin Miyuki Hendratmo</a>
+            <a href="{% url 'main:show_main' %}" class="brand">{{ name }}</a>
             <nav>
-                <a href="#profile">Profile</a>
+                <a href="{% url 'main:show_main' %}">Profile</a>
+                <a href="{% url 'main:show_experience' %}">Experience</a>
                 <a href="#skills">Skills</a>
-                <a href="#experience">Experience</a>
                 <a href="#projects">Project</a>
             </nav>
         </div>
@@ -34,22 +34,22 @@
             <div class="container hero-grid">
                 <div class="hero-identity">
                     <p class="hero-kicker">Information Systems &middot; Universitas Indonesia</p>
-                    <h1>Rachelin Miyuki Hendratmo</h1>
+                    <h1>{{ name }}</h1>
                 </div>
                 <div class="hero-photo">
                     <div class="photo-block"></div>
-                    <img class="avatar" src="/static/img/miyuki.jpeg">
+                    <img class="avatar" src="/static/img/miyuki.jpeg" alt = "Photo of {{ name }}">
                 </div>
                 <div class="hero-details">
-                    <p class="bio">IS student at Universitas Indonesia with a strong interest in Product Management and technology-driven problem solving. Passionate about building impactful technology solutions by bridging user needs, business objectives, and technical possibilities.</p>
+                    <p class="bio">{{ bio }}</p>
                     <dl class="meta-list">
                         <div class="meta-row">
                             <dt>NPM</dt>
-                            <dd>2506536553</dd>
+                            <dd>{{ npm }}</dd>
                         </div>
                         <div class="meta-row">
                             <dt>Program</dt>
-                            <dd>S1 Sistem Informasi</dd>
+                            <dd>{{ study_program }}</dd>
                         </div>
                     </dl>
                     <div class="social-links">
@@ -118,64 +118,6 @@
                             <p>
                                 Project Management · Timeline Planning ·
                                 Team Coordination · Presentation
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!--pengalaman-->
-        <section class="experience" id="experience">
-            <div class="container">
-                <h2 class="section-title">EXPERIENCE</h2>
-                <p class="section-desc">Where ideas became action and experience became growth.</p>
-
-                <div class="experience-list">
-
-                    <div class="experience-item">
-                        <div class="experience-date">
-                            <span>2026 — Present</span>
-                            <img src="/static/img/DSC01844.jpg" alt="PM Ristek">
-                        </div>
-
-                        <div class="experience-content">
-                            <h3>Staff of Product & Project Management</h3>
-                            <p class="experience-org">RISTEK Fasilkom UI 2026</p>
-                            <p class="experience-desc">
-                                Contributing to product development and project management across internal and external projects, from identifying user needs and planning features to coordinating development and execution.
-                            </p>
-                        </div>
-                    </div>
-
-
-                    <div class="experience-item">
-                        <div class="experience-date">
-                            <span>2026 — Present</span>
-                            <img src="/static/img/compfest.jpeg" alt="PMA COMPFEST 18">
-                        </div>
-
-                        <div class="experience-content">
-                            <h3>Staff of Product Management Academy</h3>
-                            <p class="experience-org">COMPFEST 18</p>
-                            <p class="experience-desc">
-                                Supporting the Product Management Academy by coordinating mentoring programs and sessions with experienced Product Management mentors and industry professionals.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="experience-item">
-                        <div class="experience-date">
-                            <span>2025</span>
-                            <img src="/static/img/PROH.jpeg" alt="PR Open House">
-                        </div>
-
-                        <div class="experience-content">
-                            <h3>Public Relations Staff</h3>
-                            <p class="experience-org">Open House Fasilkom UI</p>
-                            <p class="experience-desc">
-                                Supporting faculty outreach and promotional activities through Fasilkom Goes to School and serving as an MC for Open House events.
                             </p>
                         </div>
                     </div>
@@ -276,7 +218,7 @@
     <!--footer-->
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2026 Rachelin Miyuki Hendratmo. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
+            <p>&copy; 2026 {{ name }}. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
         </div>
     </footer>
 
