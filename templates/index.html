@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link
         rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
     />
 </head>
 <body>
@@ -22,8 +21,7 @@
             <nav>
                 <a href="{% url 'main:show_main' %}">Profile</a>
                 <a href="{% url 'main:show_experience' %}">Experience</a>
-                <a href="#skills">Skills</a>
-                <a href="#projects">Project</a>
+                <a href="{% url 'main:show_project' %}">Projects</a>
             </nav>
         </div>
     </header>
@@ -125,152 +123,6 @@
                 </div>
             </div>
         </section>
-
-        <!--pengalaman-->
-        <section class="experience" id="experience">
-            <div class="container">
-                <h2 class="section-title">EXPERIENCE</h2>
-                <p class="section-desc">Where ideas became action and experience became growth.</p>
-
-                <div class="experience-list">
-
-                    <div class="experience-item">
-                        <div class="experience-card1">
-                            <span>2026 — Present</span>
-                            <img src="/static/img/DSC01844.jpg" alt="PM Ristek">
-                        </div>
-
-                        <div class="experience-content">
-                            <h3>Staff of Product & Project Management</h3>
-                            <p class="experience-org">RISTEK Fasilkom UI 2026</p>
-                            <p class="experience-desc">
-                                Contributing to product development and project management across internal and external projects, from identifying user needs and planning features to coordinating development and execution.
-                            </p>
-                        </div>
-                    </div>
-
-
-                    <div class="experience-item">
-                        <div class="experience-card1">
-                            <span>2026 — Present</span>
-                            <img src="/static/img/compfest.jpeg" alt="PMA COMPFEST 18">
-                        </div>
-
-                        <div class="experience-content">
-                            <h3>Staff of Product Management Academy</h3>
-                            <p class="experience-org">COMPFEST 18</p>
-                            <p class="experience-desc">
-                                Supporting the Product Management Academy by coordinating mentoring programs and sessions with experienced Product Management mentors and industry professionals.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="experience-item">
-                        <div class="experience-card1">
-                            <span>2025</span>
-                            <img src="/static/img/PROH.jpeg" alt="PR Open House">
-                        </div>
-
-                        <div class="experience-content">
-                            <h3>Public Relations Staff</h3>
-                            <p class="experience-org">Open House Fasilkom UI</p>
-                            <p class="experience-desc">
-                                Supporting faculty outreach and promotional activities through Fasilkom Goes to School and serving as an MC for Open House events.
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!--projects-->
-        <section class="projects" id="projects">
-            <div class="container">
-                <h2 class="section-title">PROJECTS</h2>
-                <p class="section-desc">Things I've built, solved, and learned from.</p>
-
-                <div class="swiper portofolio-swiper">
-                    <div class="swiper-wrapper">
-
-                        <!-- Project 1 -->
-                        <div class="swiper-slide">
-                            <div class="card">
-                                <div class="card-body">
-                                    <img src="/static/img/fisiomate.png" alt="FisioMate" class="card-img-top">
-                                    <div class="project-type">Ristek Hackathon 2026</div>
-                                    <h6>FisioMate</h6>
-                                    <p>AI-powered physiotherapy platform connecting patients & physiotherapists. A dual-user platform that helps patients follow and monitor their Home Exercise Programs while enabling physiotherapists to track patient adherence and progress.</p>
-                                    <div class="project-tags">
-                                        <span>Product Management</span>
-                                        <span>User Research</span>
-                                        <span>Business Strategy</span>
-                                        <span>AI</span>
-                                    </div>
-                                    <a href="https://drive.google.com/file/d/1L-llvyIjN4tuIUEVH4-OP9lrDNhhL518/view?usp=sharing" class="text-dark">Detail Project →</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Project 2 -->
-                        <div class="swiper-slide">
-                            <div class="card">
-                                <div class="card-body">
-                                    <img src="/static/img/sunjad.webp" alt="SusunJadwal" class="card-img-top">
-                                    <div class="project-type">Website</div>
-                                    <h6>SusunJadwal</h6>
-                                    <p>A scheduling platform that helps Universitas Indonesia students find, compare, and save their ideal course schedules without the usual registration chaos.</p>
-                                    <div class="project-tags">
-                                        <span>Product Management</span>
-                                        <span>User Research</span>
-                                        <span>Feature Prioritization</span>
-                                    </div>
-                                    <a href="https://susunjadwal.cs.ui.ac.id/" class="text-dark">Detail Project →</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Project 3 -->
-                        <div class="swiper-slide">
-                            <div class="card">
-                                <div class="card-body">
-                                    <img src="/static/img/webporto.png" alt="Personal Portfolio" class="card-img-top">
-                                    <div class="project-type">Website Development</div>
-                                    <h6>Personal Portofolio</h6>
-                                    <p>A personal portfolio website designed to showcase my projects, experiences, and skills while exploring the intersection of design and web development.</p>
-                                    <div class="project-tags">
-                                        <span>HTML</span>
-                                        <span>CSS</span>
-                                        <span>Django</span>
-                                    </div>
-                                    <a href="https://rachelin-miyuki-myportofolio.pws.cs.ui.ac.id/" class="text-dark">Detail Project →</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Project 4 -->
-                        <div class="swiper-slide">
-                            <div class="card">
-                                <div class="card-body">
-                                    <img src="/static/img/risteksummer.jpeg" alt="Summer Events RISTEK 2026" class="card-img-top">
-                                    <div class="project-type">Website</div>
-                                    <h6>Website Summer Events RISTEK 2026</h6>
-                                    <p>A summer events website created to centralize event information and make it easier for students to discover, explore, and register for activities organized by RISTEK.</p>
-                                    <div class="project-tags">
-                                        <span>Project Management</span>
-                                    </div>
-                                    <a href="https://event.ristek.cs.ui.ac.id/" class="text-dark">Detail Project →</a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div>
-        </section>
     </main>
 
     <!--footer-->
@@ -280,35 +132,5 @@
         </div>
     </footer>
 
-    <!--untuk swiper yang dipake di projects-->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
-    <script>
-        var swiper = new Swiper(".portofolio-swiper", {
-            slidesPerView: 1,
-            spaceBetween: 20,
-
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-
-            breakpoints: {
-            768: {
-                slidesPerView: 2,
-                spaceBetween: 24,
-            },
-
-            1024: {
-                slidesPerView: 2.2,
-                spaceBetween: 28,
-            }
-        }
-        });
-    </script>
 </body>
 </html>

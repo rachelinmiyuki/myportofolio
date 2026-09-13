@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project - {{ name }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+    />
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="{% url 'main:show_main' %}" class="brand">{{ name }}</a>
+            <nav>
+                <a href="{% url 'main:show_main' %}">Home</a>
+                <a href="{% url 'main:show_experience' %}">Experience</a>
+                <a href="{% url 'main:show_project' %}">Projects</a>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- projects -->
+    <section class="projects" id="projects">
+        <div class="container">
+
+            <h2 class="section-title">PROJECTS</h2>
+            <p class="section-desc">
+                Things I've built, solved, and learned from.
+            </p>
+
+            <div class="swiper portofolio-swiper">
+                <div class="swiper-wrapper">
+
+                    {% for project in project_list %}
+
+                        <div class="swiper-slide">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    {% if project.thumbnail %}
+                                        <img
+                                            src="{{ project.thumbnail }}"
+                                            alt="{{ project.title }}"
+                                            class="card-img-top"
+                                        >
+                                    {% endif %}
+
+                                    <div class="project-type">
+                                        {{ project.get_project_type_display }}
+                                    </div>
+
+                                    <h6>{{ project.title }}</h6>
+
+                                    <p>
+                                        {{ project.description }}
+                                    </p>
+
+                                    <div class="project-tags">
+
+                                        {% if project.tag1 %}
+                                            <span>{{ project.tag1 }}</span>
+                                        {% endif %}
+
+                                        {% if project.tag2 %}
+                                            <span>{{ project.tag2 }}</span>
+                                        {% endif %}
+
+                                        {% if project.tag3 %}
+                                            <span>{{ project.tag3 }}</span>
+                                        {% endif %}
+
+                                        {% if project.tag4 %}
+                                            <span>{{ project.tag4 }}</span>
+                                        {% endif %}
+
+                                    </div>
+
+                                    {% if project.detail_url %}
+                                        <a
+                                            href="{{ project.detail_url }}"
+                                            class="text-dark"
+                                            target="_blank"
+                                        >
+                                            Detail Project →
+                                        </a>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </div>
+
+                    {% empty %}
+
+                        <p>Belum ada project yang ditambahkan.</p>
+
+                    {% endfor %}
+
+                </div>
+
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-pagination"></div>
+
+            </div>
+
+        </div>
+    </section>
+
+<!--footer-->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2026 {{ name }}. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
+        </div>
+    </footer>
+<!--untuk swiper yang dipake di projects-->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".portofolio-swiper", {
+            slidesPerView: 1,
+            spaceBetween: 20,
+
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+
+            breakpoints: {
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 24,
+            },
+
+            1024: {
+                slidesPerView: 2.2,
+                spaceBetween: 28,
+            }
+        }
+        });
+    </script>
+</body>
+</html>
