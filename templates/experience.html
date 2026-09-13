@@ -22,11 +22,12 @@
             <nav>
                 <a href="{% url 'main:show_main' %}">Profile</a>
                 <a href="{% url 'main:show_experience' %}">Experience</a>
+            </nav>
         </div>
     </header>
 
     <main>
-        <section class="experience-section" id="experience">
+        <section class="experience" id="experience">
             <div class="container">
                 <h2 class="section-title">EXPERIENCE</h2>
                 <p class="section-desc">Where ideas became action and experience became growth.</p>
@@ -36,9 +37,14 @@
                         <div class="experience-item">
                             <div class="experience-card1">
                                 <span class="experience-category">
-                                {{ experience.get_category_display }}
+                                    {{ experience.get_category_display }}
                                 </span>
-                                <img src="{{ experience.get_img_display }}" alt="{{ experience.get_img_alt }}">
+                                {% if experience.thumbnail %}
+                                <img
+                                    src="{{ experience.thumbnail }}"
+                                    alt="{{ experience.title }}"
+                                >
+                            {% endif %}
                             </div>
 
                             <div class="experience-content">
@@ -52,14 +58,14 @@
                                     {{ experience.description }}
                                 </p>
                             </div>
-                        <div>
+                        </div>
 
                     {% empty %}
-                        <p class="empty-state">
+                        <p>
                             Belum ada pengalaman yang ditambahkan.
                         </p>
                     {% endfor %}
-                <article>
+                </article>
             </div>
         </section>
     </main>
@@ -70,7 +76,5 @@
             <p>&copy; 2026 {{ name }}. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
         </div>
     </footer>
-
-    </script>
 </body>
 </html>

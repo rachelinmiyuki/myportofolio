@@ -299,11 +299,6 @@ h1, .brand {
     border-top: 1px solid var(--line);
 }
 
-.experience-section {
-    padding: 4rem 0;
-    border-top: 1px solid var(--line);
-}
-
 .experience > .container > .section-title {
     margin-bottom: 0.5rem;
 }
