@@ -17,11 +17,14 @@
 
 ## Project Structure 
 
-myportofolio/
+## Project Structure
+
+```text
+myportfolio/
 ├── main/
 │   ├── migrations/
-│   │   └── 0001_initial.py
-│   │   └── 0002_project.py
+│   │   ├── 0001_initial.py
+│   │   ├── 0002_project.py
 │   │   └── 0003_alter_experience_category.py
 │   ├── models.py
 │   ├── tests.py
@@ -42,6 +45,7 @@ myportofolio/
 ├── manage.py
 ├── requirements.txt
 └── README.md
+```
 
 ## Local Setup
 ### 1. Clone repository
