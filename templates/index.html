@@ -1,3 +1,4 @@
+{% extends 'base.html' %}
 {% load static %}
 <!DOCTYPE html>
 
@@ -21,11 +22,12 @@
             <nav>
                 <a href="{% url 'main:show_main' %}">Home</a>
                 <a href="{% url 'main:show_experience' %}">Experience</a>
-                <a href="{% url 'main:show_project' %}">Projects</a>
+                <a href="{% url 'main:show_project' %}">Project</a>
             </nav>
         </div>
     </header>
 
+    {% block content %}
     <main>
         <!--profile-->
         <section class="hero">
@@ -124,6 +126,7 @@
             </div>
         </section>
     </main>
+    {% endblock content %}
 
     <!--footer-->
     <footer class="site-footer">

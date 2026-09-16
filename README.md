@@ -15,8 +15,6 @@
 - CSS3
 - Git & GitHub
 
-## Project Structure 
-
 ## Project Structure
 
 ```text

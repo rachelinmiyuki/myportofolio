@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+{% block meta %}
 {% load static %}
 <!DOCTYPE html>
 
@@ -16,6 +18,8 @@
     />
 </head>
 
+{% endblock meta %}
+{% block content %}
 <body>
     <header class="site-header">
         <div class="container">
@@ -23,12 +27,12 @@
             <nav>
                 <a href="{% url 'main:show_main' %}">Home</a>
                 <a href="{% url 'main:show_experience' %}">Experience</a>
-                <a href="{% url 'main:show_project' %}">Projects</a>
+                <a href="{% url 'main:show_project' %}">Project</a>
             </nav>
         </div>
     </header>
 
-
+<main>
     <!-- projects -->
     <section class="projects">
         <div class="container">
@@ -37,6 +41,26 @@
             <p class="section-desc">
                 Things I've built, solved, and learned from.
             </p>
+
+            <div class="project-header">
+                    <h1>Projects</h1>
+                    <a href="{% url 'main:create_project' %}"
+                       class="button project-add-button">
+                        <span aria-hidden="true">+</span>
+                        Tambah Proyek
+                    </a>
+            </div>
+            <form method="get"
+                    action="{% url 'main:show_project' %}"
+                    class="project-search">
+                <input type="search"
+                        name="title"
+                        value="{{ title_query }}"
+                        placeholder="Cari berdasarkan nama proyek"
+                        class="project-search__input"
+                        aria-label="Cari berdasarkan nama proyek">
+                <button type="submit" class="button">Cari</button>
+            </form>
 
             <div class="swiper portofolio-swiper">
                 <div class="swiper-wrapper">
@@ -115,6 +139,9 @@
 
         </div>
     </section>
+</main>
+
+{% endblock content %}
 
 <!--footer-->
     <footer class="site-footer">

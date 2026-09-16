@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'main'
 ]
 
+CSRF_TRUSTED_ORIGINS = ["https://rachelin-miyuki-myportofolio.pws.cs.ui.ac.id/"]
+
 MIDDLEWARE = [
      'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',

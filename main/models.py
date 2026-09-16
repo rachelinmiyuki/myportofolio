@@ -41,7 +41,6 @@ class Project(models.Model):
     project_type = models.CharField(
         max_length=30,
         choices=PROJECT_TYPE_CHOICES,
-        default='other'
     )
     thumbnail = models.URLField(blank=True, null=True)
     tag1 = models.CharField(max_length=50, blank=True) #dijadiin max 4 tag aja per project
