@@ -582,10 +582,10 @@ h1, .brand {
     width: 40px;
     height: 40px;
 
-    top: auto;
-    bottom: 0;
+    top: 50%;
+    bottom: auto;
 
-    margin: 0;
+    margin-top: -20px;
 
     border: 1px solid var(--ink);
     border-radius: var(--radius);
@@ -960,4 +960,10 @@ button:focus-visible {
 .project-search__input:focus {
     outline: 2px solid var(--accent);
     border-color: var(--accent);
+}
+
+.project-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
 }
