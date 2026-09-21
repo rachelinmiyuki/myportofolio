@@ -3,6 +3,10 @@
 - Experience section
 - Skills
 - Projects
+- Project detail page
+- Create, update, and delete Experience
+- Create, update, and delete Projects
+- JSON data delivery
 - Responsive desktop/mobile layout
 - Semantic HTML5 structure
 - Social media and Github links
@@ -13,6 +17,7 @@
 - Django
 - HTML5
 - CSS3
+- JSON
 - Git & GitHub
 
 ## Project Structure
@@ -27,7 +32,9 @@ myportfolio/
 │   ├── models.py
 │   ├── tests.py
 │   ├── urls.py
-│   └── views.py
+│   ├── views.py
+│   ├── views.py
+│   └── forms.py
 ├── portofolio/
 │   ├── settings.py
 │   ├── urls.py
@@ -37,8 +44,14 @@ myportfolio/
 │   │   └── style.css
 │   └── img/
 ├── templates/
+│   ├── components/
+│   │   ├── experience_delete_modal.py
+│   │   └── project_delete_modal.py
 │   ├── index.html
 │   ├── experience.html
+│   ├── base.html
+│   ├── experience_form.html
+│   ├── project_form.html
 │   └── project.html
 ├── manage.py
 ├── requirements.txt
@@ -105,6 +118,21 @@ http://localhost:8000/
 - Membuat testing untuk Model, View, dan halaman Project.
 - Memperbarui dokumentasi dan AI disclosure.
 
+### Tutorial 3
+
+- Mengimplementasikan data delivery JSON pada data Project.
+- Menambahkan fitur Create, Read, dan Delete pada Project menggunakan JSON.
+
+### Tugas 3
+
+- Merapikan tampilan section Project dari Tutorial 3.
+- Membuat ModelForm untuk data Experience.
+- Mengimplementasikan fitur Create, Update, dan Delete pada Experience menggunakan form.
+- Mengimplementasikan pengambilan dan deserialisasi data Experience dalam format JSON.
+- Menambahkan fitur Update pada Project.
+- Menghubungkan proses CRUD dengan database melalui Django.
+- Memperbarui dokumentasi dan AI disclosure.
+
 
 ### Refleksi Tugas 1
 
@@ -125,3 +153,13 @@ AI disclosure: saya menggunakan AI berupa ChatGPT hanya untuk membantu saya dala
 3. makemigrations digunakan untuk membuat berkas migration berdasarkan perubahan yang dilakukan pada model, yang belum diaplikasikan ke database. Sedangkan migrate digunakan untuk menerapkan perubahan model yang ada di berkas migrasi tersebut ke database. 
 
 AI disclosure: Saya menggunakan AI berupa ChatGPT hanya untuk menanyakan alternatif dari beberapa masalah, seperti pada saat saya ingin memasukkan projects dan experience melalui terminal PWS yang setiap datanya membutuhkan link gambar, tetapi saya kesulitan dalam mengakses foto saya melalui link dan AI merekomendasikan saya menggunakan Cloudinary. Selain itu, saya juga menggunakan AI untuk membantu mencari tahu penyebab error pada saat melakukan testing, terutama ketika terdapat error karena self.experience tidak terbaca setelah saya menambahkan testing untuk Project.
+
+### Refleksi Tugas 3
+1. ModelForm digunakan karena lebih praktis dibandingkan membuat form HTML dari awal. Dengan ModelForm, kita bisa langsung membuat form berdasarkan field yang sudah ada di model. Jadi kita tidak perlu menulis satu-satu field yang dibutuhkan dan mengatur proses memasukkan datanya ke database secara manual. ModelForm juga sudah membantu dalam validasi data yang dimasukkan. Sedangkan {% csrf_token %} digunakan untuk keamanan form. Dari yang saya pahami, token ini seperti tanda bahwa request yang dikirim memang berasal dari form di website kita. Jadi, Django bisa membedakan request yang benar dari website kita dengan request yang tidak seharusnya.
+
+2. Menurut saya, JSON lebih sering digunakan karena bentuknya lebih sederhana dan lebih mudah dibaca, dibandingkan XML yang memakai banyak tag. JSON lebih singkat dan data yang dikirim juga bisa lebih ringan. Selain itu, JSON juga lebih mudah digunakan dalam aplikasi web karena bentuk datanya mirip dengan struktur object yang biasa digunakan dalam JavaScript. Maka dari itu, untuk pertukaran data antara frontend dan backend, JSON biasanya terasa lebih praktis.
+
+3. Pertama tama, view mengambil data dari database menggunakan model Django. Data yang didapat masih berupa object atau queryset Django, jadi belum bisa langsung dikirim dalam bentuk JSON. Maka dari itu, data tersebut perlu di-serialize terlebih dahulu. Dari yang saya pahami, serialization adalah proses mengubah data dari model Django menjadi bentuk yang bisa dibaca dan dikirim sebagai JSON. Setelah di-serialize, data tersebut kemudian dikembalikan oleh view menggunakan JsonResponse. Jadi secara sederhananya, alurnya adalah database > model/queryset > serialization > JSON response > data ditampilkan atau digunakan di halaman web.
+
+AI disclosure: Saya menggunakan AI berupa ChatGPT hanya untuk bantuan ketika mengalami kendala dalam proses pengerjaan, terutama untuk memahami penyebab suatu masalah dan mencari alternatif solusinya. Salah satu contohnya adalah ketika saya membuat fitur edit/update. Awalnya, saya ingin menggunakan kembali form create untuk proses update, tetapi hasilnya justru membuat data hasil edit tersimpan sebagai data baru. Saya kemudian menggunakan AI untuk membantu memahami mengapa hal tersebut terjadi dan bagaimana cara memperbaiki alurnya agar data yang diedit dapat memperbarui data yang sudah ada. Setelah mendapatkan penjelasan, saya tetap menyesuaikan dan mengimplementasikan solusinya sendiri sesuai dengan struktur project yang saya buat.
+
