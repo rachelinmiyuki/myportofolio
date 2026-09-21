@@ -20,21 +20,21 @@
                 Things I've built, solved, and learned from.
             </p>
 
-            <div class="project-header">
+            <div class="add-header">
                     <a href="{% url 'main:create_project' %}"
-                       class="button project-add-button">
+                       class="button add-button">
                         <span aria-hidden="true">+</span>
                         Tambah Proyek
                     </a>
             </div>
             <form method="get"
                     action="{% url 'main:show_project' %}"
-                    class="project-search">
+                    class="search">
                 <input type="search"
                         name="title"
                         value="{{ title_query }}"
                         placeholder="Cari berdasarkan nama proyek"
-                        class="project-search__input"
+                        class="search__input"
                         aria-label="Cari berdasarkan nama proyek">
                 <button type="submit" class="button">Cari</button>
             </form>

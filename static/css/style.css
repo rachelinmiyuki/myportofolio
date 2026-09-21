@@ -355,6 +355,12 @@ h1, .brand {
     line-height: 1.7;
 }
 
+.experience-form {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 1.5rem;
+}
+
 /* manage media nya skills dan experience */
 
 @media (max-width: 700px) {
@@ -758,35 +764,35 @@ button:focus-visible {
     .site-header nav { width: 100%; justify-content: space-between; gap: 0.75rem; }
     .site-header nav a { font-size: 0.8rem; }
     .hero-photo { max-width: 260px; margin: 0 auto; }
-    .project-add-button {
+    .add-button {
         width: 100%;
         justify-content: center;
     }
 
-    .project-search {
+    .search {
         flex-direction: column;
     }
 
-    .project-search .button {
+    .search .button {
         width: 100%;
     }
 
-    .project-delete-modal {
+    .delete-modal {
         align-items: flex-end;
         padding: 0;
     }
 
-    .project-delete-modal__content {
+    .delete-modal__content {
         width: 100%;
         padding: 1.25rem;
         border-radius: var(--radius) var(--radius) 0 0;
     }
 
-    .project-delete-modal__actions {
+    .delete-modal__actions {
         flex-direction: column-reverse;
     }
 
-    .project-delete-modal__actions .button {
+    .delete-modal__actions .button {
         width: 100%;
         text-align: center;
     }
@@ -853,7 +859,7 @@ button:focus-visible {
 }
 
 
-.project-delete-modal {
+.delete-modal {
     display: none;
     position: fixed;
     inset: 0;
@@ -870,11 +876,11 @@ button:focus-visible {
     justify-content: center;
 }
 
-.project-delete-modal:popover-open {
+.delete-modal:popover-open {
     display: flex;
 }
 
-.project-delete-modal__backdrop {
+.delete-modal__backdrop {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -885,7 +891,7 @@ button:focus-visible {
     cursor: default;
 }
 
-.project-delete-modal__content {
+.delete-modal__content {
     position: relative;
     z-index: 1;
     width: min(100%, 480px);
@@ -896,7 +902,7 @@ button:focus-visible {
     box-shadow: 0 1rem 3rem rgba(28, 25, 23, 0.22);
 }
 
-.project-delete-modal__content h2 {
+.delete-modal__content h2 {
     margin: 0 0 0.75rem;
     font-family:
         "Space Grotesk",
@@ -905,7 +911,7 @@ button:focus-visible {
     font-size: 1.5rem;
 }
 
-.project-delete-modal__close {
+.delete-modal__close {
     position: absolute;
     top: 1rem;
     right: 1rem;
@@ -918,7 +924,7 @@ button:focus-visible {
     cursor: pointer;
 }
 
-.project-delete-modal__actions {
+.delete-modal__actions {
     display: flex;
     justify-content: flex-end;
     gap: 0.75rem;
@@ -940,13 +946,13 @@ button:focus-visible {
     line-height: 1;
 }
 
-.project-search {
+.search {
     display: flex;
     gap: 0.75rem;
     margin-bottom: 1.5rem;
 }
 
-.project-search__input {
+.search__input {
     width: 100%;
     min-width: 0;
     padding: 0.7rem;
@@ -957,12 +963,12 @@ button:focus-visible {
     font: inherit;
 }
 
-.project-search__input:focus {
+.search__input:focus {
     outline: 2px solid var(--accent);
     border-color: var(--accent);
 }
 
-.project-header {
+.add-header {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 1rem;
