@@ -89,6 +89,7 @@ def create_experience(request):
     context = {
         "name": "Rachelin Miyuki Hendratmo",
         "form": form,
+        "is_update": False
     }
     return render(request, "experience_form.html", context)
 
@@ -126,3 +127,24 @@ def delete_project(request, project_id):
 
     return redirect("main:show_project")
 
+def update_experience(request, experience_id):
+    experience = get_object_or_404(Experience, pk=experience_id)
+
+    form = ExperienceForm(
+        request.POST or None,
+        instance=experience
+    )
+
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, "Experience berhasil diubah!")
+        return redirect("main:show_experience")
+
+    context = {
+        "name": "Rachelin Miyuki Hendratmo",
+        "form": form,
+        "experience": experience,
+        "is_update": True,
+    }
+
+    return render(request, "experience_form.html", context)
