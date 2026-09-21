@@ -765,16 +765,24 @@ button:focus-visible {
     .site-header nav a { font-size: 0.8rem; }
     .hero-photo { max-width: 260px; margin: 0 auto; }
     .add-button {
-        width: 100%;
+        width: auto;
+        display: inline-flex;
         justify-content: center;
     }
 
     .search {
-        flex-direction: column;
+        flex-direction: row;
+        align-items: stretch;
+    }
+
+    .search__input {
+        flex: 1;
+        min-width: 0;
     }
 
     .search .button {
-        width: 100%;
+        width: auto;
+        flex-shrink: 0;
     }
 
     .delete-modal {
