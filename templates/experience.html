@@ -58,13 +58,19 @@
                                     {{ experience.description }}
                                 </p>
 
-                                <div>
-                                    <a href="{% url 'main:update_experience' experience.id %}"
-                                    class="button">
-                                        Edit Pengalaman
-                                    </a>
+                                <div class="behaviour">
+                                    {% if user.is_superuser %}
+                                        <a href="{% url 'main:update_experience' experience.id %}"
+                                        class="button">
+                                            Edit
+                                        </a>
+                                    {% endif %} 
 
-                                    {% include "components/experience_delete_modal.html" with experience=experience %}
+                                    {% include "components/experience_star.html" with experience=experience %}
+                            
+                                    {% if user.is_superuser %}
+                                        {% include "components/experience_delete_modal.html" with experience=experience %}
+                                    {% endif %}    
                                 </div>
                             </div>
                         </div>
