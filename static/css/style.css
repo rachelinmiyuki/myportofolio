@@ -1017,3 +1017,12 @@ button:focus-visible {
 .behaviour > * {
     margin: 0 !important;
 }
+
+.behaviour-experience {
+    display: flex !important;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 1.5rem 0 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+}

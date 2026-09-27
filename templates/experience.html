@@ -13,11 +13,14 @@
                 <p class="section-desc">Where ideas became action and experience became growth.</p>
 
                 <div class="add-header">
-                    <a href="{% url 'main:create_experience' %}"
-                       class="button add-button">
-                        <span aria-hidden="true">+</span>
-                        Tambah Pengalaman
-                    </a>
+                    {% if user.is_superuser %}  
+                        <a href="{% url 'main:create_experience' %}"
+                        class="button add-button">
+                            <span aria-hidden="true">+</span>
+                            Tambah Pengalaman
+                        </a>
+
+                    {% endif %}
                 </div>
 
                 <form method="get"
@@ -58,7 +61,7 @@
                                     {{ experience.description }}
                                 </p>
 
-                                <div class="behaviour">
+                                <div class="behaviour-experience">
                                     {% if user.is_superuser %}
                                         <a href="{% url 'main:update_experience' experience.id %}"
                                         class="button">
