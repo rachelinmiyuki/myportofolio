@@ -21,11 +21,13 @@
             </p>
 
             <div class="add-header">
+                {% if user.is_superuser %}  
                     <a href="{% url 'main:create_project' %}"
                        class="button add-button">
                         <span aria-hidden="true">+</span>
                         Tambah Proyek
                     </a>
+                {% endif %}    
             </div>
             <form method="get"
                     action="{% url 'main:show_project' %}"
@@ -96,14 +98,20 @@
                                         </a>
                                     {% endif %}
                                 
-                                
                                     
-                                <div style="padding: 0 1.5rem 1.5rem;">
-                                        <a href="{% url 'main:update_project' project.id %}"
-                                            class="button">
-                                            Edit Project
-                                        </a>
-                                        {% include "components/project_delete_modal.html" with project=project %}
+                                <div class="behaviour">
+                                        {% if user.is_superuser %}
+                                            <a href="{% url 'main:update_project' project.id %}" class="button">
+                                                Edit
+                                            </a>
+                                        {% endif %} 
+                                        
+                                        {% include "components/project_star.html" with project=project %}
+                                      
+                                        {% if user.is_superuser %}  
+                                            {% include "components/project_delete_modal.html" with project=project %}
+                                        {% endif %} 
+                                       
                                 </div>
 
                             </div>
