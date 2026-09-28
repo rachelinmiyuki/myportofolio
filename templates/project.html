@@ -100,7 +100,7 @@
                                 
                                     
                                 <div class="behaviour">
-                                        {% if user.is_superuser %}
+                                        {% if user.is_superuser or is_editor %}
                                             <a href="{% url 'main:update_project' project.id %}" class="button">
                                                 Edit
                                             </a>

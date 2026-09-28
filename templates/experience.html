@@ -62,7 +62,7 @@
                                 </p>
 
                                 <div class="behaviour-experience">
-                                    {% if user.is_superuser %}
+                                    {% if user.is_superuser or is_editor %}
                                         <a href="{% url 'main:update_experience' experience.id %}"
                                         class="button">
                                             Edit

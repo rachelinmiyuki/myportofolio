@@ -1021,8 +1021,9 @@ button:focus-visible {
 .behaviour-experience {
     display: flex !important;
     align-items: center;
+    justify-content: flex-start;
     gap: 0.5rem;
-    padding: 0 1.5rem 0 1.5rem;
+    padding: 0 1.5rem;
     width: 100%;
     box-sizing: border-box;
 }
