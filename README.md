@@ -28,11 +28,12 @@ myportfolio/
 │   ├── migrations/
 │   │   ├── 0001_initial.py
 │   │   ├── 0002_project.py
-│   │   └── 0003_alter_experience_category.py
+│   │   ├── 0003_alter_experience_category.py
+│   │   ├── 0004_project_starred_by_alter_experience_category_and_more.py
+│   │   └── 0005_experience_starred_by.py
 │   ├── models.py
 │   ├── tests.py
 │   ├── urls.py
-│   ├── views.py
 │   ├── views.py
 │   └── forms.py
 ├── portofolio/
@@ -46,12 +47,16 @@ myportfolio/
 ├── templates/
 │   ├── components/
 │   │   ├── experience_delete_modal.py
-│   │   └── project_delete_modal.py
+│   │   ├── project_delete_modal.py
+│   │   ├── experience_star.html
+│   │   └── project_star.html
 │   ├── index.html
 │   ├── experience.html
 │   ├── base.html
 │   ├── experience_form.html
 │   ├── project_form.html
+│   ├── login.html
+│   ├── register.html
 │   └── project.html
 ├── manage.py
 ├── requirements.txt
@@ -133,6 +138,19 @@ http://localhost:8000/
 - Menghubungkan proses CRUD dengan database melalui Django.
 - Memperbarui dokumentasi dan AI disclosure.
 
+### Tutorial 4
+- Mengimplementasikan sistem registrasi, login, dan logout menggunakan autentikasi bawaan Django.
+- Menampilkan status login pada halaman.
+- Menampilkan informasi last_login menggunakan cookie.
+- Membatasi perubahan data Project berdasarkan hak akses pengguna.
+- Menambahkan fitur pemberian dan pembatalan star pada Project untuk pengguna yang sudah login.
+
+### Tugas 4
+- Menerapkan autentikasi dan otorisasi pada data Experience.
+- Membuat peran Editor menggunakan Django Group.
+- Menerapkan pembatasan hak akses untuk membuat, mengubah, dan menghapus data Experience.
+- Menambahkan fitur pemberian dan pembatalan star pada Experience.
+- Memperbarui dokumentasi dan AI disclosure.
 
 ### Refleksi Tugas 1
 
@@ -162,3 +180,6 @@ AI disclosure: Saya menggunakan AI berupa ChatGPT hanya untuk menanyakan alterna
 3. Pertama tama, view mengambil data dari database menggunakan model Django. Data yang didapat masih berupa object atau queryset Django, jadi belum bisa langsung dikirim dalam bentuk JSON. Maka dari itu, data tersebut perlu di-serialize terlebih dahulu. Dari yang saya pahami, serialization adalah proses mengubah data dari model Django menjadi bentuk yang bisa dibaca dan dikirim sebagai JSON. Setelah di-serialize, data tersebut kemudian dikembalikan oleh view menggunakan JsonResponse. Jadi secara sederhananya, alurnya adalah database > model/queryset > serialization > JSON response > data ditampilkan atau digunakan di halaman web.
 
 AI disclosure: Saya menggunakan AI berupa ChatGPT hanya untuk bantuan ketika mengalami kendala dalam proses pengerjaan, terutama untuk memahami penyebab suatu masalah dan mencari alternatif solusinya. Salah satu contohnya adalah ketika saya membuat fitur edit/update. Awalnya, saya ingin menggunakan kembali form create untuk proses update, tetapi hasilnya justru membuat data hasil edit tersimpan sebagai data baru. Saya kemudian menggunakan AI untuk membantu memahami mengapa hal tersebut terjadi dan bagaimana cara memperbaiki alurnya agar data yang diedit dapat memperbarui data yang sudah ada. Setelah mendapatkan penjelasan, saya tetap menyesuaikan dan mengimplementasikan solusinya sendiri sesuai dengan struktur project yang saya buat.
+
+### Refleksi Tugas 4
+AI disclosure: Saya menggunakan AI berupa ChatGPT sebagai bantuan ketika mengalami kendala dalam proses pengerjaan, terutama untuk memahami konsep autentikasi dan otorisasi serta mencari alternatif solusi dari error yang saya temui. Salah satu contohnya adalah ketika saya mengimplementasikan peran Editor menggunakan Django Group. Saya menggunakan AI untuk membantu memahami cara mengecek keanggotaan user dalam Group dan menerapkan pembatasan akses agar Editor dapat mengubah data, tetapi tidak dapat membuat atau menghapus data. Saya sempat ada kendala saat mengirim context sehingga peran editor tidak sesuai. Setelah mendapatkan penjelasan, saya tetap menyesuaikan dan mengimplementasikan solusinya sendiri sesuai dengan struktur project yang saya buat.
