@@ -35,11 +35,13 @@ def show_experience(request):
     experiences = [experience.object for experience in experiences]
 
     title_query = request.GET.get("title", "").strip()
+    is_editor = request.user.groups.filter(name="Editor").exists()
 
     context = {
         "name": "Rachelin Miyuki Hendratmo",
         "experience_list": experiences,
         "title_query": title_query,
+        "is_editor": is_editor,
     }
     return render(request, "experience.html", context)
 
@@ -52,11 +54,12 @@ def show_project(request):
     )
     projects = [project.object for project in projects]
     title_query = request.GET.get("title", "").strip()
-
+    is_editor = request.user.groups.filter(name="Editor").exists()
     context = {
         "name": "Rachelin Miyuki Hendratmo",
         "project_list": projects,
         "title_query": title_query,
+        "is_editor": is_editor,
     }
     return render(request, "project.html", context)
 
