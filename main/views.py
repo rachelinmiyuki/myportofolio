@@ -201,7 +201,7 @@ def delete_project(request, project_id):
 @login_required(login_url="/login/")
 def update_experience(request, experience_id):
     is_editor = request.user.groups.filter(name="Editor").exists()
-    if not request.user.is_superuser or not is_editor:
+    if not request.user.is_superuser and not is_editor:
             raise PermissionDenied
     experience = get_object_or_404(Experience, pk=experience_id)
 
@@ -227,7 +227,7 @@ def update_experience(request, experience_id):
 @login_required(login_url="/login/")
 def update_project(request, project_id):
     is_editor = request.user.groups.filter(name="Editor").exists()
-    if not request.user.is_superuser or not is_editor:
+    if not request.user.is_superuser and not is_editor:
                 raise PermissionDenied
         
     project = get_object_or_404(Project, pk=project_id)
