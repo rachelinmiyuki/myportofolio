@@ -117,6 +117,7 @@ def get_projects_json(request):
                 "title": project.title,
                 "description": project.description,
                 "project_type": project.project_type,
+                "project_type_display": project.get_project_type_display(),
                 "thumbnail": project.thumbnail,
                 "tag1": project.tag1,
                 "tag2": project.tag2,

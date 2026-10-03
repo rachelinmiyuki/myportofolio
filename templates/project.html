@@ -62,13 +62,27 @@
                 <p>Belum ada proyek yang ditambahkan atau ditemukan.</p>
             </div>
 
-            <!-- Project Grid -->
-            <div id="grid" class="experience-grid project-grid hide"></div>
+            <!-- Project Swiper -->
+            <div id="project-swiper" class="swiper portofolio-swiper hide">
 
+                <div id="project-swiper-wrapper" class="swiper-wrapper">
+                    <!-- Project cards akan dibuat oleh JavaScript -->
+                </div>
+
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+
+                <div class="swiper-pagination"></div>
+
+            </div>
+
+            <!-- Project Grid
+            <div id="grid" class="experience-grid project-grid hide"></div> -->
+<!-- 
             <div id="grid" class="swiper portofolio-swiper">
-                <div class="swiper-wrapper">
+                <div class="swiper-wrapper"> -->
 
-                    {% for project in project_list %}
+                    <!-- {% for project in project_list %}
 
                         <div class="swiper-slide">
                             <div class="card">
@@ -146,7 +160,7 @@
 
                         <p>Belum ada project yang ditambahkan.</p>
 
-                    {% endfor %}
+                    {% endfor %} -->
 
                 </div>
 
@@ -167,21 +181,51 @@
 <!--untuk swiper yang dipake di projects-->
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
     <script>
-        var swiper = new Swiper(".portofolio-swiper", {
-            slidesPerView: 1,
-            spaceBetween: 20,
+    //     var swiper = new Swiper(".portofolio-swiper", {
+    //         slidesPerView: 1,
+    //         spaceBetween: 20,
 
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
+    //         navigation: {
+    //             nextEl: ".swiper-button-next",
+    //             prevEl: ".swiper-button-prev",
+    //         },
 
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
+    //         pagination: {
+    //             el: ".swiper-pagination",
+    //             clickable: true,
+    //         },
 
-            breakpoints: {
+    //         breakpoints: {
+    //         768: {
+    //             slidesPerView: 2,
+    //             spaceBetween: 24,
+    //         },
+
+    //         1024: {
+    //             slidesPerView: 2.2,
+    //             spaceBetween: 28,
+    //         }
+    //     }
+    //     }
+    // );
+
+    var swiper = new Swiper(".portofolio-swiper", {
+        slidesPerView: 1,
+        spaceBetween: 20,
+
+        watchOverflow: true,
+
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+
+        breakpoints: {
             768: {
                 slidesPerView: 2,
                 spaceBetween: 24,
@@ -192,19 +236,22 @@
                 spaceBetween: 28,
             }
         }
-        });
+    });
 
     // Konfigurasi
     const BASE_PROJECTS_ENDPOINT = "{% url 'main:get_projects_json' %}";
     const IS_EDITOR = "{{ is_editor|yesno:'true,false' }}" === "true";
-
+    const IS_SUPERUSER = "{{ user.is_superuser|yesno:'true,false' }}" === "true";
     let projectsAbortController;
 
     // Elemen DOM
     const loadingState = document.getElementById('loading');
     const errorState = document.getElementById('error');
     const emptyState = document.getElementById('empty');
-    const gridContainer = document.getElementById('grid');
+    // diganti jadi swiper
+    const swiperContainer = document.getElementById('project-swiper');
+    const swiperWrapper = document.getElementById('project-swiper-wrapper');
+
     const searchForm = document.getElementById('project-search-form');
     const searchInput = document.getElementById('search-input');
 
@@ -222,7 +269,7 @@
         loadingState.classList.toggle('hide', !showLoading);
         errorState.classList.toggle('hide', !showError);
         emptyState.classList.toggle('hide', !showEmpty);
-        gridContainer.classList.toggle('hide', !showGrid);
+        swiperContainer.classList.toggle('hide', !showGrid);
     }
 
     // Mengubah karakter khusus HTML menjadi entity agar ditampilkan sebagai teks
@@ -235,141 +282,177 @@
             .replaceAll("'", '&#39;');
     }
 
-    // Membuat elemen card project
     function buildProjectCardElement(item) {
-        const project = item.fields;
-        const projectId = item.pk;
+    const project = item.fields;
+    const projectId = item.pk;
 
-        const articleElement = document.createElement('article');
-        articleElement.className = 'experience-card';
-        
-        // Thumbnail
-        
-        const imageHtml = project.thumbnail
-            ? `
-                <img
-                    src="${project.thumbnail}"
-                    alt="Gambar ${project.title}"
-                    class="project-image"
+    // =========================
+    // SWIPER SLIDE
+    // =========================
+
+    const slideElement = document.createElement("div");
+    slideElement.className = "swiper-slide";
+
+    // =========================
+    // THUMBNAIL
+    // =========================
+
+    const imageHtml = project.thumbnail
+        ? `
+            <img
+                src="${escapeHtml(project.thumbnail)}"
+                alt="${escapeHtml(project.title)}"
+                class="card-img-top"
+            >
+        `
+        : "";
+
+    // =========================
+    // PROJECT TYPE
+    // =========================
+
+    const projectTypeHtml = project.project_type_display
+        ? `
+            <div class="project-type">
+                ${escapeHtml(project.project_type_display)}
+            </div>
+        `
+        : "";
+
+    // =========================
+    // TAGS
+    // =========================
+
+    const tags = [
+        project.tag1,
+        project.tag2,
+        project.tag3,
+        project.tag4
+    ].filter(tag => tag && tag.trim() !== "");
+
+    const tagsHtml = tags.length > 0
+        ? `
+            <div class="project-tags">
+                ${tags.map(tag => `
+                    <span>${escapeHtml(tag)}</span>
+                `).join("")}
+            </div>
+        `
+        : "";
+
+    // =========================
+    // DETAIL URL
+    // =========================
+
+    const detailUrlHtml = project.detail_url
+        ? `
+            <a
+                href="${escapeHtml(project.detail_url)}"
+                class="text-dark"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Detail Project →
+            </a>
+        `
+        : "";
+
+    // =========================
+    // EDIT BUTTON
+    // =========================
+
+    const editHtml = IS_EDITOR || IS_SUPERUSER
+        ? `
+            <a
+                href="/project/${projectId}/update/"
+                class="button"
+            >
+                Edit
+            </a>
+        `
+        : "";
+
+    // =========================
+    // DELETE BUTTON
+    // =========================
+    // SESUAI LOGIC LAMA:
+    // hanya SUPERUSER
+
+    const deleteUrl = "{% url 'main:delete_project' '00000000-0000-0000-0000-000000000000' %}"
+        .replace(
+            "00000000-0000-0000-0000-000000000000",
+            projectId
+        );
+
+    const deleteHtml = IS_SUPERUSER
+        ? `
+            <form
+                method="post"
+                action="${deleteUrl}"
+                style="display:inline;"
+            >
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="button button-danger"
+                    onclick="return confirm('Yakin ingin menghapus project ini?');"
                 >
-            `
-            : '';
+                    Hapus
+                </button>
+            </form>
+        `
+        : "";
 
-        // Project Type
-        
-        const projectTypeHtml = project.project_type
-            ? `
-                <span class="experience-category">
-                    ${project.project_type}
-                </span>
-            `
-            : '';
+    // =========================
+    // STAR
+    // =========================
 
-        // Tags
-        
-        const tags = [
-            project.tag1,
-            project.tag2,
-            project.tag3,
-            project.tag4
-        ].filter(tag => tag && tag.trim() !== '');
+    const starUrl = "{% url 'main:toggle_star' '00000000-0000-0000-0000-000000000000' %}"
+        .replace(
+            "00000000-0000-0000-0000-000000000000",
+            projectId
+        );
 
-        const tagsHtml = tags.length > 0
-            ? `
-                <div class="project-tags">
-                    ${tags.map(tag => `
-                        <span class="project-tag">${tag}</span>
-                    `).join('')}
-                </div>
-            `
-            : '';
-        
-        // Detail URL
-        
-        const urlHtml = project.detail_url
-            ? `
-                <a
-                    href="${project.detail_url}"
-                    class="button"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Lihat Project
-                </a>
-            `
-            : '';
+    const isStarredClass = project.is_starred
+        ? " is-starred"
+        : "";
 
-        // Delete URL
-        
-        const deleteUrl = "{% url 'main:delete_project' '00000000-0000-0000-0000-000000000000' %}"
-            .replace(
-                '00000000-0000-0000-0000-000000000000',
-                projectId
-            );
-        
-        // Star URL
-        
-        const starUrl = "{% url 'main:toggle_star' '00000000-0000-0000-0000-000000000000' %}"
-            .replace(
-                '00000000-0000-0000-0000-000000000000',
-                projectId
-            );
+    const starText = project.is_starred
+        ? "Unstar"
+        : "Star";
 
-        // Delete Button
-        
-        const deleteHtml = IS_EDITOR
-            ? `
-                <form
-                    method="post"
-                    action="${deleteUrl}"
-                    style="display:inline;"
-                >
-                    {% csrf_token %}
+    const starTitle = project.star_count > 0
+        ? `Dibintangi oleh ${escapeHtml(project.starred_by_names)}`
+        : "Jadilah yang pertama memberi star";
 
-                    <button
-                        type="submit"
-                        class="button button-danger"
-                        onclick="return confirm('Yakin ingin menghapus project ini?');"
-                    >
-                        Hapus
-                    </button>
-                </form>
-            `
-            : '';
-        
-        // Star Button
-        
-        const isStarredClass = project.is_starred
-            ? " is-starred"
-            : "";
+    // =========================
+    // CARD
+    // =========================
 
-        const starText = project.is_starred
-            ? "Unstar"
-            : "Star";
+    const cardHtml = `
+        <div class="card">
+            <div class="card-body">
 
-        const starTitle = project.star_count > 0
-            ? `Dibintangi oleh ${project.starred_by_names}`
-            : "Jadilah yang pertama memberi star";
+                ${imageHtml}
 
-        // Card
-        
-        const completeCardHtml = `
-            ${imageHtml}
+                ${projectTypeHtml}
 
-            <h2>${project.title}</h2>
+                <h6>
+                    ${escapeHtml(project.title)}
+                </h6>
 
-            ${projectTypeHtml}
+                <p>
+                    ${escapeHtml(project.description)}
+                </p>
 
-            ${tagsHtml}
+                ${tagsHtml}
 
-            <p class="experience-description">
-                ${project.description}
-            </p>
+                ${detailUrlHtml}
 
-            <div class="project-card-actions">
-                <div class="project-actions">
+                <div class="behaviour">
 
-                    ${urlHtml}
+                    ${editHtml}
 
                     <form
                         method="post"
@@ -394,102 +477,94 @@
                     ${deleteHtml}
 
                 </div>
+
             </div>
-        `;
+        </div>
+    `;
 
-        //         const imageHtml = project.project_image_url
-        //     ? `<img src="${escapeHtml(project.project_image_url)}" alt="Gambar ${escapeHtml(project.title)}" class="project-image">`
-        //     : '';
+    slideElement.innerHTML = cardHtml;
 
-        // const urlHtml = project.project_url
-        //     ? `<a href="${escapeHtml(project.project_url)}" class="button">Lihat Project</a>`
-        //     : '';
-
-        // ...
-
-        // const starTitle = project.star_count > 0
-        //     ? `Dibintangi oleh ${escapeHtml(project.starred_by_names)}`
-        //     : "Jadilah yang pertama memberi star";
-
-        // // Komponen card
-        // const completeCardHtml = `
-        //     ${imageHtml}
-        //     <h2>${escapeHtml(project.title)}</h2>
-        //     <span class="experience-category">${escapeHtml(project.tech_stack)}</span>
-        //     <p class="experience-description">${escapeHtml(project.description)}</p>
-        //     ...
-        // `;
-        articleElement.innerHTML = completeCardHtml;
-
-        return articleElement;
-    }
+    return slideElement;
+}
 
 
     // Fetch data project
     async function fetchProjects(searchQuery = "") {
 
-        if (projectsAbortController) {
-            projectsAbortController.abort();
-        }
-
-        projectsAbortController = new AbortController();
-
-        try {
-            displayPageSection({
-                showLoading: true
-            });
-
-            const url = searchQuery
-                ? `${BASE_PROJECTS_ENDPOINT}?title=${encodeURIComponent(searchQuery)}`
-                : BASE_PROJECTS_ENDPOINT;
-
-            const response = await fetch(url, {
-                headers: {
-                    'Accept': 'application/json'
-                },
-                signal: projectsAbortController.signal,
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch data');
-            }
-
-            const projectData = await response.json();
-
-            if (projectData.length === 0) {
-
-                displayPageSection({
-                    showEmpty: true
-                });
-
-            } else {
-
-                gridContainer.innerHTML = '';
-
-                projectData.forEach(item => {
-                    gridContainer.appendChild(
-                        buildProjectCardElement(item)
-                    );
-                });
-
-                displayPageSection({
-                    showGrid: true
-                });
-            }
-
-        } catch (error) {
-
-            if (error.name === 'AbortError') {
-                return;
-            }
-
-            console.error('Error loading projects:', error);
-
-            displayPageSection({
-                showError: true
-            });
-        }
+    if (projectsAbortController) {
+        projectsAbortController.abort();
     }
+
+    projectsAbortController = new AbortController();
+
+    try {
+        displayPageSection({
+            showLoading: true
+        });
+
+        const url = searchQuery
+            ? `${BASE_PROJECTS_ENDPOINT}?title=${encodeURIComponent(searchQuery)}`
+            : BASE_PROJECTS_ENDPOINT;
+
+        const response = await fetch(url, {
+            headers: {
+                "Accept": "application/json"
+            },
+            signal: projectsAbortController.signal
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch data");
+        }
+
+        const projectData = await response.json();
+
+        if (projectData.length === 0) {
+
+            swiperWrapper.innerHTML = "";
+
+            displayPageSection({
+                showEmpty: true
+            });
+
+            swiper.update();
+
+            return;
+        }
+
+        // Kosongkan hasil sebelumnya
+        swiperWrapper.innerHTML = "";
+
+        // Masukkan hasil baru
+        projectData.forEach(item => {
+            swiperWrapper.appendChild(
+                buildProjectCardElement(item)
+            );
+        });
+
+        // Beri tahu Swiper bahwa isi berubah
+        swiper.update();
+
+        // Kembali ke slide pertama
+        swiper.slideTo(0, 0);
+
+        displayPageSection({
+            showGrid: true
+        });
+
+    } catch (error) {
+
+        if (error.name === "AbortError") {
+            return;
+        }
+
+        console.error("Error loading projects:", error);
+
+        displayPageSection({
+            showError: true
+        });
+    }
+}
 
 
     
