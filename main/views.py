@@ -160,7 +160,6 @@ def create_project(request):
 
     if request.method == "POST" and form.is_valid():
         form.save()
-        messages.success(request, "Proyek baru berhasil ditambahkan!")
         return redirect("main:show_project")
 
     context = {
