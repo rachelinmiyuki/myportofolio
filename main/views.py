@@ -179,7 +179,6 @@ def create_experience(request):
 
     if request.method == "POST" and form.is_valid():
         form.save()
-        messages.success(request, "Experience baru berhasil ditambahkan!")
         return redirect("main:show_experience")
 
     context = {
@@ -205,19 +204,17 @@ def create_project(request):
         "form": form,
         "is_update": False,
     }
-
-    
     return render(request, "projects_form.html", context)
 
 @login_required(login_url="/login/")
 def delete_experience(request, experience_id):
     if not request.user.is_superuser:
-            raise PermissionDenied
+        raise PermissionDenied
     experience = get_object_or_404(Experience, pk=experience_id)
 
     if request.method == "POST":
         experience.delete()
-        messages.success(request, "Experience berhasil dihapus!")
+        messages.success(request, "Pengalaman berhasil dihapus!")
         return redirect("main:show_experience")
 
     return redirect("main:show_experience")
@@ -225,13 +222,13 @@ def delete_experience(request, experience_id):
 @login_required(login_url="/login/")
 def delete_project(request, project_id):
     if not request.user.is_superuser:
-                raise PermissionDenied
+        raise PermissionDenied
     
     project = get_object_or_404(Project, pk=project_id)
 
     if request.method == "POST":
         project.delete()
-        messages.success(request, "Project berhasil dihapus!")
+        messages.success(request, "Proyek berhasil dihapus!")
         return redirect("main:show_project")
 
     return redirect("main:show_project")
@@ -377,7 +374,7 @@ def create_project_ajax(request):
 def create_experience_ajax(request):
     if not request.user.is_superuser:
         return JsonResponse(
-            {"message": "Hanya pemilik portofolio yang dapat menambahkan proyek."},
+            {"message": "Hanya pemilik portofolio yang dapat menambahkan pengalaman."},
             status=403,
         )
 

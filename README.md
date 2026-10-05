@@ -10,6 +10,11 @@
 - Responsive desktop/mobile layout
 - Semantic HTML5 structure
 - Social media and Github links
+- AJAX data fetching
+- AJAX search with debouncing
+- Modal form with AJAX submission
+- Toast notifications
+- XSS protection
 
 ## Tech Stack
 
@@ -19,6 +24,8 @@
 - CSS3
 - JSON
 - Git & GitHub
+- JavaScript
+- AJAX/Fetch API
 
 ## Project Structure
 
@@ -43,13 +50,18 @@ myportfolio/
 ├── static/
 │   ├── css/
 │   │   └── style.css
-│   └── img/
+│   ├── img/
+│   └── js/
+│       └── toast.js
 ├── templates/
 │   ├── components/
-│   │   ├── experience_delete_modal.py
-│   │   ├── project_delete_modal.py
+│   │   ├── experience_delete_modal.html
+│   │   ├── experience_form_modal.html
 │   │   ├── experience_star.html
-│   │   └── project_star.html
+│   │   ├── project_delete_modal.html
+│   │   ├── project_form_modal.html
+│   │   ├── project_star.html
+│   │   └── toast.html
 │   ├── index.html
 │   ├── experience.html
 │   ├── base.html
@@ -152,6 +164,27 @@ http://localhost:8000/
 - Menambahkan fitur pemberian dan pembatalan star pada Experience.
 - Memperbarui dokumentasi dan AI disclosure.
 
+### Tutorial 5
+- Mengimplementasikan pengambilan data Project menggunakan AJAX.
+- Menambahkan endpoint JSON dengan JsonResponse.
+- Menampilkan data Project secara dinamis menggunakan JavaScript.
+- Menambahkan fitur pencarian Project menggunakan AJAX dengan debouncing.
+- Membuat form tambah Project dalam modal dan mengirim data menggunakan AJAX.
+- Menambahkan loading, empty, dan error state pada pengambilan data.
+- Menambahkan toast notification untuk memberikan informasi mengenai hasil proses.
+- Menerapkan validasi form dan pemeriksaan hak akses pada proses penambahan data.
+- Menerapkan perlindungan XSS dengan melakukan escaping pada data yang ditampilkan melalui JavaScript.
+
+### Tugas 5
+- Mengimplementasikan pengambilan data Experience menggunakan AJAX.
+- Menambahkan endpoint JSON dengan JsonResponse untuk menampilkan data Experience beserta jumlah star dan status star pengguna.
+- Menambahkan fitur pencarian Experience menggunakan AJAX dan debouncing.
+- Mengimplementasikan form tambah Experience dalam modal menggunakan AJAX tanpa reload halaman.
+- Menambahkan loading, empty, dan error state pada pengambilan data.
+- Menambahkan toast notification untuk kondisi berhasil maupun gagal.
+- Menambahkan validasi data menggunakan ModelForm dan HTTP status code untuk menangani response.
+- Menerapkan perlindungan XSS dengan escapeHtml pada JavaScript dan strip_tags pada ModelForm.
+
 ### Refleksi Tugas 1
 
 1. Iya, di website portofolio saya menggunakan beberapa elemen semantik HTML5 seperti <section> untuk membagi section utama pada website portofolio, yaitu about, experience, skills, dan projects. Menurut saya, penggunaan elemen ini cukup membantu karena struktur HTML jadi lebih jelas dan gampang dibaca. Saya juga jadi lebih mudah ketika ingin mengatur CSS untuk masing-masing bagian dikarenakan setiap section sudah punya fungsi yang jelas. Jadi walaupun website yang dibuat masih static, struktur kontennya tetap lebih terorganisir dan tidak hanya menggunakan <div> untuk semuanya.
@@ -183,3 +216,12 @@ AI disclosure: Saya menggunakan AI berupa ChatGPT hanya untuk bantuan ketika men
 
 ### Refleksi Tugas 4
 AI disclosure: Saya menggunakan AI berupa ChatGPT sebagai bantuan ketika mengalami kendala dalam proses pengerjaan, terutama untuk memahami konsep autentikasi dan otorisasi serta mencari alternatif solusi dari error yang saya temui. Salah satu contohnya adalah ketika saya mengimplementasikan peran Editor menggunakan Django Group. Saya menggunakan AI untuk membantu memahami cara mengecek keanggotaan user dalam Group dan menerapkan pembatasan akses agar Editor dapat mengubah data, tetapi tidak dapat membuat atau menghapus data. Saya sempat ada kendala saat mengirim context sehingga peran editor tidak sesuai. Setelah mendapatkan penjelasan, saya tetap menyesuaikan dan mengimplementasikan solusinya sendiri sesuai dengan struktur project yang saya buat.
+
+### Refleksi Tugas 5
+1. Menurut saya, debouncing adalah cara untuk mengatur supaya fungsi tidak langsung dijalankan setiap kali ada perubahan input. Pada fitur search, debouncing membuat request AJAX baru dikirim setelah pengguna berhenti mengetik selama beberapa waktu. Jadi server tidak menerima request untuk setiap huruf yang diketik dan ini membuat pencarian lebih efisien dan mengurangi jumlah request yang dikirim.
+
+2. await digunakan untuk menunggu proses fetch() selesai sebelum melanjutkan ke proses berikutnya. Menurut saya, ini penting karena kita membutuhkan response dari server terlebih dahulu sebelum bisa mengambil data seperti response.json(). Kalau tidak menggunakan await, fetch() akan menghasilkan Promise, sehingga proses berikutnya bisa berjalan sebelum data dari server selesai diterima. Dengan itu, data yang ingin digunakan bisa belum tersedia.
+
+3. XSS adalah serangan ketika ada script atau kode berbahaya yang dimasukkan ke dalam data dan kemudian dijalankan oleh browser. Menurut saya, data yang ditampilkan melalui AJAX lebih perlu diperhatikan karena data tersebut biasanya dimasukkan ke dalam halaman menggunakan JavaScript. Kalau data langsung dimasukkan ke HTML tanpa dilakukan escaping, browser bisa menganggapnya sebagai HTML atau script. Maka itu, pada project ini saya menggunakan escapeHtml sebelum memasukkan data ke HTML dan menggunakan strip_tags pada ModelForm untuk membersihkan input dari tag HTML.
+
+AI Disclosure: Saya menggunakan ChatGPT saat mengalami kesulitan dalam memahami konsep atau mencari tahu penyebab error yang saya temui. ChatGPT juga saya gunakan untuk melihat beberapa alternatif cara penyelesaian, terutama dalam penerapan AJAX, debouncing, modal, dan validasi data. Setelah itu, saya menyesuaikan dan menerapkan solusi tersebut pada project sesuai dengan kebutuhan saya.
