@@ -432,4 +432,4 @@ def contact_update(request, pk):
     contact.email = data.get("email", contact.email)
     contact.phone = data.get("phone", contact.phone)
     contact.save()
-    return render(request, "_contact_row.html", {"contact": contact})
+    return render(request,  "contacts/contact_add_response.html", {"contact": contact})
