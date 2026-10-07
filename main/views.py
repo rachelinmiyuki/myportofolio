@@ -1,15 +1,15 @@
-from main.models import Experience, Project
+from main.models import Experience, Project, Contact
 from main.forms import ProjectForm, ExperienceForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.core import serializers
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render
 import datetime
 from django.contrib.auth.decorators import login_required  
 from django.core.exceptions import PermissionDenied
-from django.views.decorators.http import require_POST  
+from django.views.decorators.http import require_POST, require_http_methods
     
 
 def show_main(request):
@@ -387,3 +387,49 @@ def create_experience_ajax(request):
         )
 
     return JsonResponse({"errors": form.errors.get_json_data()}, status=400)
+
+
+def contact_list(request):
+    contacts = Contact.objects.all()
+    return render(request, "contacts/index.html", {"contacts": contacts})
+
+
+def contact_add(request):
+    if request.method == "POST":
+        Contact.objects.create(
+            name=request.POST.get("name"),
+            email=request.POST.get("email"),
+            phone=request.POST.get("phone"),
+        )
+    contacts = Contact.objects.all()
+    return render(request, "_contact_rows.html", {"contacts": contacts})
+
+
+@require_http_methods(["DELETE"])
+def contact_delete(request, pk):
+    contact = get_object_or_404(Contact, pk=pk)
+    contact.delete()
+    return HttpResponse("")
+
+def contact_search(request):
+    query = request.GET.get("q", "")
+    contacts = Contact.objects.filter(name__icontains=query) if query else Contact.objects.all()
+    return render(request, "_contact_rows.html", {"contacts": contacts})
+
+def contact_edit(request, pk):
+    contact = get_object_or_404(Contact, pk=pk)
+    return render(request, "_contact_edit_row.html", {"contact": contact})
+
+def contact_row(request, pk):
+    contact = get_object_or_404(Contact, pk=pk)
+    return render(request, "_contact_row.html", {"contact": contact})
+
+@require_http_methods(["PUT"])
+def contact_update(request, pk):
+    contact = get_object_or_404(Contact, pk=pk)
+    data = QueryDict(request.body)
+    contact.name = data.get("name", contact.name)
+    contact.email = data.get("email", contact.email)
+    contact.phone = data.get("phone", contact.phone)
+    contact.save()
+    return render(request, "_contact_row.html", {"contact": contact})
