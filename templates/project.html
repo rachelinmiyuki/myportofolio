@@ -265,9 +265,7 @@
         showError = false,
         showEmpty = false,
         showGrid = false
-    }) 
-    
-    {
+    }) {
         loadingState.classList.toggle('hide', !showLoading);
         errorState.classList.toggle('hide', !showError);
         emptyState.classList.toggle('hide', !showEmpty);
@@ -305,7 +303,7 @@
         `
         : "";
 
-    // PROJECT TYPE        
+    // PROJECT TYPE
 
     const projectTypeHtml = project.project_type_display
         ? `
@@ -333,8 +331,8 @@
             </div>
         `
         : "";
+
     // DETAIL URL
-    
 
     const detailUrlHtml = project.detail_url
         ? `
@@ -393,7 +391,7 @@
         : "";
 
     // STAR
-                                      
+
     const starUrl = "{% url 'main:toggle_star' '00000000-0000-0000-0000-000000000000' %}"
         .replace(
             "00000000-0000-0000-0000-000000000000",
@@ -437,8 +435,6 @@
                 <div class="behaviour">
 
                     ${editHtml}
-
-                    
 
                     <form
                         method="post"
