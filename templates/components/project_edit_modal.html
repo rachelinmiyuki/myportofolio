@@ -1,0 +1,60 @@
+
+<div id="edit-project-modal"
+     class="project-form-modal"
+     popover="auto"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="edit-project-modal-title">
+
+    <button type="button"
+            class="project-form-modal__backdrop"
+            popovertarget="edit-project-modal"
+            popovertargetaction="hide"
+            aria-label="Tutup form edit proyek"></button>
+
+    <div class="project-form-modal__content">
+        <button type="button"
+                class="project-form-modal__close"
+                popovertarget="edit-project-modal"
+                popovertargetaction="hide"
+                aria-label="Tutup form edit proyek">×</button>
+
+        <h2 id="edit-project-modal-title">Edit Project</h2>
+
+        <form id="edit-project-form"
+              method="post"
+              class="project-form">
+
+            {% csrf_token %}
+
+            <input type="hidden" id="edit-project-id">
+
+            {% for field in edit_form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field }}
+
+                    {% for error in field.errors %}
+                        <p class="form-error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            <div class="project-form-modal__actions">
+                <button type="button"
+                        class="button button-secondary"
+                        popovertarget="edit-project-modal"
+                        popovertargetaction="hide">
+                    Batal
+                </button>
+
+                <button type="submit" class="button">
+                    Simpan Perubahan
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

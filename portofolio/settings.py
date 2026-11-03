@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main'
+    'main',
+    "rest_framework",
 ]
 
 CSRF_TRUSTED_ORIGINS = ["https://rachelin-miyuki-myportofolio.pws.cs.ui.ac.id"]

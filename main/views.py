@@ -81,6 +81,7 @@ def show_project(request):
         "title_query": title_query,
         "is_editor": is_editor,
         "form": ProjectForm(),
+        "edit_form": ProjectForm(prefix="edit"),
     }
     return render(request, "project.html", context)
 
