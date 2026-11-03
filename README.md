@@ -15,6 +15,9 @@
 - Modal form with AJAX submission
 - Toast notifications
 - XSS protection
+- REST API using Django REST Framework
+- API authentication and permission management
+- Project API testing
 
 ## Tech Stack
 
@@ -26,6 +29,7 @@
 - Git & GitHub
 - JavaScript
 - AJAX/Fetch API
+- Django REST Framework
 
 ## Project Structure
 
@@ -42,7 +46,12 @@ myportfolio/
 │   ├── tests.py
 │   ├── urls.py
 │   ├── views.py
-│   └── forms.py
+│   ├── forms.py
+│   ├── api_urls.py
+│   ├── api_views.py
+│   ├── permissions.py
+│   ├── serializers.py
+│   └── tests_api.py
 ├── portofolio/
 │   ├── settings.py
 │   ├── urls.py
@@ -184,6 +193,20 @@ http://localhost:8000/
 - Menambahkan toast notification untuk kondisi berhasil maupun gagal.
 - Menambahkan validasi data menggunakan ModelForm dan HTTP status code untuk menangani response.
 - Menerapkan perlindungan XSS dengan escapeHtml pada JavaScript dan strip_tags pada ModelForm.
+
+**### Tutorial 7**
+
+- Mengimplementasikan Django REST Framework (DRF) untuk membuat REST API pada data Project.
+- Membuat `ProjectSerializer` untuk mengubah data Project menjadi JSON dan melakukan validasi input.
+- Membuat API endpoint untuk menampilkan daftar dan detail Project.
+- Mengimplementasikan fitur Create, Read, Update, dan Delete Project melalui REST API.
+- Mengatur autentikasi dan hak akses menggunakan `SessionAuthentication` dan permission class.
+- Menambahkan endpoint untuk pemberian dan pembatalan star Project.
+- Mengintegrasikan REST API dengan AJAX pada halaman Projects.
+- Menambahkan fitur pencarian Project menggunakan API.
+- Menerapkan validasi input dan perlindungan XSS pada data yang diproses.
+- Menambahkan pengujian untuk API, validasi, autentikasi, dan hak akses.
+- Memperbarui dokumentasi dan AI disclosure.
 
 ### Refleksi Tugas 1
 
