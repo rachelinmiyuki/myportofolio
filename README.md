@@ -67,7 +67,9 @@ myportfolio/
 │   │   ├── experience_delete_modal.html
 │   │   ├── experience_form_modal.html
 │   │   ├── experience_star.html
+│   │   ├── experience_edit_modal.html
 │   │   ├── project_delete_modal.html
+│   │   ├── project_edit_modal.html
 │   │   ├── project_form_modal.html
 │   │   ├── project_star.html
 │   │   └── toast.html
@@ -194,7 +196,7 @@ http://localhost:8000/
 - Menambahkan validasi data menggunakan ModelForm dan HTTP status code untuk menangani response.
 - Menerapkan perlindungan XSS dengan escapeHtml pada JavaScript dan strip_tags pada ModelForm.
 
-**### Tutorial 7**
+### Tutorial 7**
 
 - Mengimplementasikan Django REST Framework (DRF) untuk membuat REST API pada data Project.
 - Membuat `ProjectSerializer` untuk mengubah data Project menjadi JSON dan melakukan validasi input.
@@ -206,6 +208,16 @@ http://localhost:8000/
 - Menambahkan fitur pencarian Project menggunakan API.
 - Menerapkan validasi input dan perlindungan XSS pada data yang diproses.
 - Menambahkan pengujian untuk API, validasi, autentikasi, dan hak akses.
+- Memperbarui dokumentasi dan AI disclosure.
+
+### Tugas 6
+- Mengimplementasikan REST API menggunakan Django REST Framework untuk Project dan Experience.
+- Membuat ProjectSerializer dan ExperienceSerializer untuk mengubah data menjadi JSON.
+- Membuat endpoint API untuk fitur CRUD, pencarian, dan star.
+- Menerapkan authentication dan permission berdasarkan role pengguna.
+- Menambahkan validasi input pada serializer.
+- Mengintegrasikan REST API dengan JavaScript.
+- Membuat automated testing untuk menguji API, validasi, dan hak akses.
 - Memperbarui dokumentasi dan AI disclosure.
 
 ### Refleksi Tugas 1
@@ -248,3 +260,16 @@ AI disclosure: Saya menggunakan AI berupa ChatGPT sebagai bantuan ketika mengala
 3. XSS adalah serangan ketika ada script atau kode berbahaya yang dimasukkan ke dalam data dan kemudian dijalankan oleh browser. Menurut saya, data yang ditampilkan melalui AJAX lebih perlu diperhatikan karena data tersebut biasanya dimasukkan ke dalam halaman menggunakan JavaScript. Kalau data langsung dimasukkan ke HTML tanpa dilakukan escaping, browser bisa menganggapnya sebagai HTML atau script. Maka itu, pada project ini saya menggunakan escapeHtml sebelum memasukkan data ke HTML dan menggunakan strip_tags pada ModelForm untuk membersihkan input dari tag HTML.
 
 AI Disclosure: Saya menggunakan ChatGPT saat mengalami kesulitan dalam memahami konsep atau mencari tahu penyebab error yang saya temui. ChatGPT juga saya gunakan untuk melihat beberapa alternatif cara penyelesaian, terutama dalam penerapan AJAX, debouncing, modal, dan validasi data. Setelah itu, saya menyesuaikan dan menerapkan solusi tersebut pada project sesuai dengan kebutuhan saya.
+
+
+
+### Refleksi Tugas 6
+1. REST itu cara membuat API dengan aturan tertentu, misalnya setiap URL mewakili data dan HTTP method digunakan sesuai fungsinya. Jadi, API yang mengembalikan JSON belum tentu RESTful karena masih harus mengikuti aturan REST lainnya. PUT dipakai kalau mau mengganti seluruh data, sedangkan PATCH kalau cuma mau mengubah beberapa bagian. Contohnya, mengganti semua informasi Project pakai PUT, tapi kalau cuma mau ganti judulnya pakai PATCH.
+
+2. Serializer itu berguna untuk mengubah data dari model Django menjadi JSON dan sebaliknya. Serializer juga bisa mengecek apakah data yang dikirim sudah sesuai atau belum. Dibandingkan membuat dictionary sendiri dengan JsonResponse, pakai serializer lebih praktis karena proses mengubah data dan validasinya sudah dibantu.
+
+3. Autentikasi itu untuk memastikan siapa pengguna yang sedang mengakses API, sedangkan otorisasi untuk menentukan apa yang boleh dilakukan pengguna tersebut. Permission class harus dipasang di server karena menyembunyikan tombol di template saja tidak menjamin keamanan. Pengguna masih bisa mengakses endpoint secara langsung meskipun tombolnya tidak ditampilkan.
+
+4. Kalau menggunakan SessionAuthentication, request yang mengubah data tetap perlu CSRF token supaya website lain tidak bisa sembarangan mengirim request menggunakan sesi pengguna. force_authenticate tidak cukup untuk menguji CSRF karena cara ini melewati proses autentikasi normal, jadi perlindungan CSRF-nya tidak benar-benar diuji.
+
+AI Disclosure: Saya menggunakan ChatGPT untuk membantu memahami error dan mencari alternatif solusi selama implementasi REST API. Salah satunya ketika melakukan validasi input HTML pada ExperienceSerializer. Saya tetap memeriksa dan menyesuaikan solusi yang diberikan dengan struktur project saya.
