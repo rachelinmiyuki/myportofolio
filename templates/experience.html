@@ -329,53 +329,52 @@
         }
 
         experienceList.addEventListener("click", async function(event) {
-        const button = event.target.closest("[data-action]");
-        if (!button) return;
+            const button = event.target.closest("button[data-action]");
 
-        const action = button.dataset.action;
-        const id = button.dataset.id;
+            if (!button || button.disabled) return;
 
-        try {
-            if (action === "star") {
-                const { response, result } = await sendExperienceRequest(
-                    getExperienceStarUrl(id),
-                    "POST"
-                );
+            const action = button.dataset.action;
+            const experienceId = button.dataset.id;
 
-                if (!response.ok) {
-                    showApiError("Gagal memberi star", result, response);
-                    return;
-                }
-
-                fetchExperiences(experienceSearchInput.value.trim());
+            if (action === "edit") {
+                openEditExperienceModal(experienceId);
+                return;
             }
 
             if (action === "delete") {
-                const title = button.dataset.title;
-                if (!confirm(`Yakin ingin menghapus "${title}"?`)) return;
-
-                const { response, result } = await sendExperienceRequest(
-                    getExperienceUrl(id),
-                    "DELETE"
-                );
-
-                if (!response.ok) {
-                    showApiError("Gagal menghapus pengalaman", result, response);
+                if (!window.confirm("Yakin ingin menghapus pengalaman ini?")) {
                     return;
                 }
-
-                showToast("Berhasil", "Pengalaman berhasil dihapus!", "success");
-                fetchExperiences(experienceSearchInput.value.trim());
             }
 
-            if (action === "edit") {
-                await openEditExperience(id);
+            button.disabled = true;
+
+            try {
+                const url = action === "star"
+                    ? getExperienceStarUrl(experienceId)
+                    : getExperienceUrl(experienceId);
+
+                const method = action === "star" ? "POST" : "DELETE";
+
+                await writeExperience(url, method);
+
+                showToast(
+                    "Berhasil",
+                    action === "star"
+                        ? "Star berhasil diperbarui."
+                        : "Pengalaman berhasil dihapus.",
+                    "success"
+                );
+
+                await fetchExperiences(experienceSearchInput.value.trim());
+
+            } catch (error) {
+                showToast("Request gagal", error.message, "error");
+
+            } finally {
+                button.disabled = false;
             }
-        } catch (error) {
-            console.error(error);
-            showToast("Terjadi kesalahan", "Tidak dapat terhubung ke server.", "error");
-        }
-    });
+        });
 
         // FETCH EXPERIENCES
         async function fetchExperiences(
@@ -425,7 +424,7 @@
                     await response.json();
 
                 currentExperiences = experienceData;
-                
+
                 if (experienceData.length === 0) {
 
                     experienceList.innerHTML = "";
@@ -476,6 +475,66 @@
             }
         }
 
+        //EDIT
+
+        const editExperienceForm = document.getElementById("edit-experience-form");
+
+        async function updateExperience(event) {
+            event.preventDefault();
+
+            const button = editExperienceForm.querySelector(
+                'button[type="submit"]'
+            );
+
+            button.disabled = true;
+
+            try {
+                const experienceId = document.getElementById(
+                    "edit-experience-id"
+                ).value;
+
+                const formData = new FormData(editExperienceForm);
+
+                const fieldNames = [
+                    "title",
+                    "description",
+                    "category",
+                    "thumbnail"
+                ];
+
+                const payload = Object.fromEntries(
+                    fieldNames.map(name => [
+                        name,
+                        formData.get(name)
+                    ])
+                );
+
+                const url = getExperienceUrl(experienceId);
+
+                await writeExperience(url, "PATCH", payload);
+
+                closeEditExperienceModal();
+
+                showToast(
+                    "Berhasil",
+                    "Pengalaman berhasil diperbarui.",
+                    "success"
+                );
+
+                await fetchExperiences(experienceSearchInput.value.trim());
+
+            } catch (error) {
+                showToast("Update gagal", error.message, "error");
+
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        if (editExperienceForm) {
+            editExperienceForm.addEventListener("submit", updateExperience);
+        }
+
 
         // SEARCH
 
@@ -521,32 +580,75 @@
         );
 
         // ADD
-        const CREATE_EXPERIENCE_ENDPOINT =
-            "{% url 'main:create_experience_ajax' %}";
+        const experienceForm = document.getElementById("experience-form");
 
-        const experienceForm =
-            document.getElementById("experience-form");
+        async function addExperience(event) {
+            event.preventDefault();
+
+            const button = experienceForm.querySelector(
+                'button[type="submit"]'
+            );
+
+            button.disabled = true;
+
+            try {
+                const fields = new FormData(experienceForm);
+
+                const payload = Object.fromEntries([
+                    "title",
+                    "description",
+                    "category",
+                    "thumbnail"
+                ].map(name => [name, fields.get(name)]));
+
+                await writeExperience(
+                    BASE_EXPERIENCES_ENDPOINT,
+                    "POST",
+                    payload
+                );
+
+                experienceForm.reset();
+
+                document.getElementById("add-experience-modal").hidePopover();
+
+                showToast(
+                    "Berhasil",
+                    "Pengalaman baru berhasil ditambahkan!",
+                    "success"
+                );
+
+                await fetchExperiences(experienceSearchInput.value.trim());
+
+            } catch (error) {
+                showToast("Gagal menambahkan pengalaman", error.message, "error");
+
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        if (experienceForm) {
+            experienceForm.addEventListener("submit", addExperience);
+        }
+
+        // INITIAL LOAD
+        fetchExperiences(
+            experienceSearchInput.value.trim()
+        );
 
         function getCookie(name) {
-
             let cookieValue = null;
 
             if (document.cookie && document.cookie !== "") {
-
                 const cookies = document.cookie.split(";");
 
-                for (let i = 0; i < cookies.length; i++) {
+                for (let cookie of cookies) {
+                    cookie = cookie.trim();
 
-                    const cookie = cookies[i].trim();
-
-                    if (
-                        cookie.substring(0, name.length + 1)
-                        === name + "="
-                    ) {
+                    if (cookie.startsWith(name + "=")) {
                         cookieValue = decodeURIComponent(
                             cookie.substring(name.length + 1)
                         );
-
                         break;
                     }
                 }
@@ -554,93 +656,6 @@
 
             return cookieValue;
         }
-
-
-        function closeExperienceModal() {
-
-            document
-                .getElementById("add-experience-modal")
-                .hidePopover();
-
-        }
-
-
-        async function addExperience(event) {
-
-            event.preventDefault();
-
-            const submitButton =
-                experienceForm.querySelector(
-                    'button[type="submit"]'
-                );
-
-            submitButton.disabled = true;
-            const formData = new FormData(experienceForm);
-
-            const payload = {
-                title: formData.get("title"),
-                description: formData.get("description"),
-                category: formData.get("category"),
-                thumbnail: formData.get("thumbnail") || null,
-            };
-
-            const isEditing = editingExperienceId !== null;
-            const url = isEditing
-                ? getExperienceUrl(editingExperienceId)
-                : BASE_EXPERIENCES_ENDPOINT;
-            const method = isEditing ? "PATCH" : "POST";
-
-            try {
-                const { response, result } = await sendExperienceRequest(
-                    url,
-                    method,
-                    payload
-                );
-
-                if (!response.ok) {
-                    showApiError(
-                        isEditing ? "Gagal mengubah pengalaman" : "Gagal menambahkan pengalaman",
-                        result,
-                        response
-                    );
-                    return;
-                }
-
-                experienceForm.reset();
-                editingExperienceId = null;
-                closeExperienceModal();
-
-                showToast(
-                    "Berhasil",
-                    isEditing
-                        ? "Pengalaman berhasil diubah!"
-                        : "Pengalaman berhasil ditambahkan!",
-                    "success"
-                );
-
-                fetchExperiences(experienceSearchInput.value.trim());
-            } catch (error) {
-                console.error(error);
-                showToast("Gagal", "Tidak dapat terhubung ke server.", "error");
-            } finally {
-                submitButton.disabled = false;
-            }
-        }
-
-
-        if (experienceForm) {
-
-            experienceForm.addEventListener(
-                "submit",
-                addExperience
-            );
-
-        }
-
-        // INITIAL LOAD
-        fetchExperiences(
-            experienceSearchInput.value.trim()
-        );
 
         async function sendExperienceRequest(url, method, data = null) {
             const options = {
@@ -676,6 +691,61 @@
 
             showToast(title, message, "error");
         }
+
+        function openEditExperienceModal(experienceId) {
+            const experience = currentExperiences.find(
+                item => item.id === experienceId
+            );
+
+            if (!experience) return;
+
+            const form = document.getElementById("edit-experience-form");
+
+            form.elements["title"].value = experience.title || "";
+            form.elements["description"].value = experience.description || "";
+            form.elements["category"].value = experience.category || "";
+            form.elements["thumbnail"].value = experience.thumbnail || "";
+
+            document.getElementById("edit-experience-id").value = experience.id;
+
+            document.getElementById("edit-experience-modal").showPopover();
+        }
+
+        function closeEditExperienceModal() {
+            document.getElementById("edit-experience-modal").hidePopover();
+        }
+
+        function apiErrorMessage(data, status) {
+        const messages = Object.values(data)
+            .flat()
+            .filter(value => typeof value === "string");
+
+        return messages.join(" ") || `Request failed (HTTP ${status}).`;
+    }
+
+    async function writeExperience(url, method, payload) {
+        const response = await fetch(url, {
+            method,
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken")
+            },
+            body: payload === undefined
+                ? undefined
+                : JSON.stringify(payload)
+        });
+
+        if (response.status === 204) return null;
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            throw new Error(apiErrorMessage(data, response.status));
+        }
+
+        return data;
+    }
 
     </script>
 
