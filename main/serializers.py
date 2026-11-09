@@ -77,12 +77,19 @@ class ExperienceSerializer(serializers.ModelSerializer):
         read_only_fields = ["id"]
 
     def validate_title(self, value):
-        value = strip_tags(value).strip()
-        if not value:
+        cleaned_value = strip_tags(value).strip()
+
+        if not cleaned_value:
             raise serializers.ValidationError(
                 "Nama pengalaman tidak boleh kosong."
             )
-        return value
+
+        if cleaned_value != value.strip():
+            raise serializers.ValidationError(
+                "Nama pengalaman tidak boleh mengandung HTML."
+            )
+
+        return cleaned_value
 
     def validate_description(self, value):
         return strip_tags(value).strip()

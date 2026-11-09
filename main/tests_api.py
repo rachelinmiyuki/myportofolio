@@ -5,7 +5,8 @@ from django.contrib.auth.models import Group, User
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
-
+from django.utils.html import strip_tags
+from rest_framework import serializers
 from main.models import Project, Experience
 
 
@@ -558,6 +559,7 @@ class ExperienceAPITest(APITestCase):
             self.assertEqual(
                 response.status_code,
                 status.HTTP_400_BAD_REQUEST,
+                msg=f"Payload gagal: {changes}, response: {response.data}",
             )
 
         self.assertEqual(Experience.objects.count(), 1)
